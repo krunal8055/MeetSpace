@@ -39,9 +39,5 @@ public class Room_Detail_page extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("RoomNo "+room_no);
         RoomNo.setText(room_no);
 
-
-
-
-
     }
 }
