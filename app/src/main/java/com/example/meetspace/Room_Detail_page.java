@@ -38,5 +38,10 @@ public class Room_Detail_page extends Fragment {
         RoomNo = view.findViewById(R.id.room_no_room_detail);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("RoomNo "+room_no);
         RoomNo.setText(room_no);
+
+
+
+
+
     }
 }
