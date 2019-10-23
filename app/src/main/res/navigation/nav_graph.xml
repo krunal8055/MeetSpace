@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomePage">
+    <fragment
+        android:id="@+id/welcomePage"
+        android:name="com.example.meetspace.WelcomePage"
+        android:label="fragment_welcome_page"
+        tools:layout="@layout/fragment_welcome_page" >
+        <action
+            android:id="@+id/action_welcomePage_to_loginPage"
+            app:destination="@id/loginPage"
+            app:enterAnim="@anim/fragment_open_enter" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginPage"
+        android:name="com.example.meetspace.LoginPage"
+        android:label="Login"
+        tools:layout="@layout/fragment_login_page" >
+        <action
+            android:id="@+id/action_loginPage_to_forgetPasswordPage"
+            app:destination="@+id/forgetPasswordPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgetPasswordPage"
+        android:name="com.example.meetspace.ForgetPasswordPage"
+        android:label="ForgetPassword"
+        tools:layout="@layout/fragment_forget_password_page" >
+        <action
+            android:id="@+id/action_forgetPasswordPage_to_loginPage"
+            app:destination="@id/loginPage" />
+    </fragment>
+</navigation>

@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Orange</item>
+        <item name="colorPrimaryDark">@color/dark_grey</item>
+        <item name="colorAccent">@color/light_blue</item>
+        <item name="android:fontFamily">@font/lucidabrightdemibold</item>
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeColor">@color/user_auth_default_textinput_border_color</item>
+        <item name="hintTextAppearance">@style/TextInputHint</item>
+        <item name="errorTextAppearance">@style/TextInputError</item>
+        <item name="errorTextColor">@color/colorErroronAuth</item>
+        <item name="android:textColorHint">@android:color/black</item>
+        <item name="hintTextColor">@color/Orange</item>
+        <item name="endIconTint">@color/Orange</item>
+        <item name="errorIconTint">@android:color/holo_red_dark</item>
+        <item name="startIconTint">@color/Orange</item>
+    </style>
+    <style name="TextInputHint" parent="TextAppearance.Design.Hint">
+        <!-- Floating label appearance here -->
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="TextInputError" parent="TextAppearance.Design.Error">
+        <!-- Error message appearance here -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/lucidabrightdemibold</item>
+    </style>
+    <style name="NavDrawerTexApptStyle" parent="TextAppearance.AppCompat.Menu">
+        <item name="android:fontFamily">@font/lucidabrightdemibold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="NavigationTheme" parent="AppTheme">
+        <item name="listPreferredItemHeightSmall">55dp</item><!-- menu item height- vary as u need -->
+    </style>
+
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/light_blue</item>
+    </style>
+
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "268063312947",
+    "firebase_url": "https://meetspace-3d172.firebaseio.com",
+    "project_id": "meetspace-3d172",
+    "storage_bucket": "meetspace-3d172.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268063312947:android:663b46931ac45b62066746",
+        "android_client_info": {
+          "package_name": "com.example.meetspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268063312947-f2tetk235p87669uriuqlhsetk9utosc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meetspace",
+            "certificate_hash": "77c70d7facbc7bb8f5919bddaf331f574ac46ec7"
+          }
+        },
+        {
+          "client_id": "268063312947-uvn66eao49k7cj6fjjclh39od2k7f8us.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClTOV46V8rQXX2NU2x1OowmUbDRJK3dBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268063312947-uvn66eao49k7cj6fjjclh39od2k7f8us.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

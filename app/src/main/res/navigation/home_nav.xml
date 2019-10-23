@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav"
+    app:startDestination="@id/homepage">
+
+    <fragment
+        android:id="@+id/homepage"
+        android:name="com.example.meetspace.Homepage"
+        android:label="Meetspace"
+        tools:layout="@layout/fragment_homepage" >
+        <action
+            android:id="@+id/action_homepage_self"
+            app:destination="@id/homepage" />
+        <action
+            android:id="@+id/action_homepage_to_myBookingPage"
+            app:destination="@id/myBookingPage" />
+        <action
+            android:id="@+id/action_homepage_to_filter_page"
+            app:destination="@id/filter_page"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homepage_to_room_Detail_page"
+            app:destination="@id/room_Detail_page" />
+    </fragment>
+    <fragment
+        android:id="@+id/myBookingPage"
+        android:name="com.example.meetspace.MyBookingPage"
+        android:label="My Boooking"
+        tools:layout="@layout/fragment_my_booking_page" />
+    <fragment
+        android:id="@+id/filter_page"
+        android:name="com.example.meetspace.Filter_page"
+        android:label="Filter"
+        tools:layout="@layout/fragment_filter_page" >
+        <action
+            android:id="@+id/action_filter_page_to_homepage"
+            app:destination="@id/homepage" />
+    </fragment>
+    <fragment
+        android:id="@+id/room_Detail_page"
+        android:name="com.example.meetspace.Room_Detail_page"
+        android:label="fragment_room__detail_page"
+        tools:layout="@layout/fragment_room__detail_page" />
+</navigation>

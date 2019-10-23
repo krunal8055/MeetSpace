@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/home_nav_drawer"
+            android:icon="@drawable/home_icon"
+            android:title="Home"/>
+        <item
+            android:id="@+id/booking_history_nav_draw"
+            android:icon="@drawable/history_icon"
+            android:title="Booking History"/>
+        <item
+            android:id="@+id/my_booking_nav_draw"
+            android:icon="@drawable/my_booking_icon"
+            android:title="My Booking"/>
+        <item
+            android:id="@+id/notification_nav_draw"
+            android:icon="@drawable/notifications_icon"
+            android:title="Notification"/>
+        <item
+            android:id="@+id/about_us_nav_draw"
+            android:icon="@drawable/about_us_icon"
+            android:title="About us"/>
+        <item
+            android:id="@+id/log_out_nav_draw"
+            android:icon="@drawable/logout_icon"
+            android:title="Log out"/>
+    </group>
+
+</menu>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MeetSpace</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="search_title">Search</string>
+    <string name="search_hint">Enter Room no to Search</string>
+    <string name="upcoming_tab_bar">Upcoming</string>
+    <string name="completed_tab_bar">Completed</string>
+    <string name="cancelled_tab_bar">Cancelled</string>
+
+    <string name="spinner_title">Please select Room Catagory</string>
+    <string name="spinner_item_1">Class Room</string>
+    <string name="spinner_item_2">Meeting Room</string>
+    <string name="spinner_item_3">Labs</string>
+    <string name="spinner_item_4">Others</string>
+</resources>
+

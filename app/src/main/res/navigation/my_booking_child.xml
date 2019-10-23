@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_booking_child"
+    app:startDestination="@id/upcoming_Booking_Tab">
+
+    <fragment
+        android:id="@+id/upcoming_Booking_Tab"
+        android:name="com.example.meetspace.MyBookingTab.Upcoming_Booking_Tab"
+        android:label="Upcoming Booking"
+        tools:layout="@layout/fragment_upcoming__booking_tab" />
+    <fragment
+        android:id="@+id/completed_Booking_Tab"
+        android:name="com.example.meetspace.MyBookingTab.Completed_Booking_Tab"
+        android:label="Completed Booking"
+        tools:layout="@layout/fragment_completed__booking__tab" />
+    <fragment
+        android:id="@+id/cancelled_Booking_Tab"
+        android:name="com.example.meetspace.MyBookingTab.Cancelled_Booking_Tab"
+        android:label="Cancelled Booking"
+        tools:layout="@layout/fragment_cancelled__booking__tab" />
+</navigation>

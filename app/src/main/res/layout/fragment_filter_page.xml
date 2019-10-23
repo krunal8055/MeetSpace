@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Filter_page"
+    android:id="@+id/filter_page">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_sort_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort by:"
+                android:textSize="20dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@android:color/black"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/dark_grey">
+                <RadioGroup
+                    android:id="@+id/room_status_radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <RadioButton
+                        android:id="@+id/available_radio_btn_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Available"
+                        android:textSize="20dp"
+                        android:layout_margin="10dp"
+                        android:textColor="@android:color/white"
+                        android:buttonTint="@android:color/white"
+                        android:checked="true"/>
+                    <RadioButton
+                        android:id="@+id/booked_radio_btn_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Booked"
+                        android:textSize="20dp"
+                        android:layout_margin="10dp"
+                        android:textColor="@android:color/white"
+                        android:buttonTint="@android:color/white"/>
+                </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_filter_by"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/apply_filter_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout_sort_by">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filter by:"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:layout_marginStart="20dp"/>
+            <!--Main Linear Layout for Filter by start-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dark_grey"
+                android:orientation="vertical"
+                android:paddingBottom="30dp">
+                <!--Date Linear Layout start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Date :"
+                        android:textColor="@android:color/white"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/date_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/textview_boarder"
+                        android:gravity="center"
+                        android:hint="Please Select date"
+                        android:padding="10dp"
+                        android:textColor="@color/Orange"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="20dp" />
+                </LinearLayout>
+                <!--Time Linear Layout start-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal">
+                    <!--Start time Linear Layout start-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Start Time :"
+                            android:textColor="@android:color/white"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/start_time_filter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/textview_boarder"
+                            android:hint="Select time"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="@color/Orange"
+                            android:textColorHint="@android:color/white"
+                            android:textSize="20dp" />
+                    </LinearLayout>
+                    <!--End Time Linear Layout start-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="End Time :"
+                            android:textColor="@android:color/white"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/end_time_filter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/textview_boarder"
+                            android:gravity="center"
+                            android:hint="Select time"
+                            android:padding="10dp"
+                            android:textColor="@color/Orange"
+                            android:textColorHint="@android:color/white"
+                            android:textSize="20dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                        <AutoCompleteTextView
+                            android:background="@drawable/textview_boarder"
+                            android:id="@+id/auto_complete_text_room_catagory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Select Room Catagory"
+                            android:textColorHint="@android:color/white"
+                            android:textSize="20dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:orientation="vertical"
+                            android:textAlignment="center"
+                            android:padding="10dp"
+                            android:ems="5" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/apply_filter_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apply Filter"
+            android:textColor="@android:color/white"
+            android:layout_gravity="bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/Orange"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="20dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
