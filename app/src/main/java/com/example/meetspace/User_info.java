@@ -1,13 +1,14 @@
 package com.example.meetspace;
 
 public class User_info {
-    String Name,Email,Password,Emp_id,Designation/*,UID*/;
+    String First_Name,Last_Name,Email,Password,Emp_id,Designation/*,UID*/;
 
     public User_info() {
     }
 
-    public User_info(String name, String email, String password, String emp_id, String designation/*, String UID*/) {
-        Name = name;
+    public User_info(String first_name,String last_name, String email, String password, String emp_id, String designation/*, String UID*/) {
+        First_Name = first_name;
+        Last_Name = last_name;
         Email = email;
         Password = password;
         Emp_id = emp_id;
@@ -15,12 +16,20 @@ public class User_info {
         //this.UID = UID;
     }
 
-    public String getName() {
-        return Name;
+    public String getFirst_Name() {
+        return First_Name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setFirst_Name(String first_Name) {
+        First_Name = first_Name;
+    }
+
+    public String getLast_Name() {
+        return Last_Name;
+    }
+
+    public void setLast_Name(String last_Name) {
+        Last_Name = last_Name;
     }
 
     public String getEmail() {
@@ -54,12 +63,4 @@ public class User_info {
     public void setDesignation(String designation) {
         Designation = designation;
     }
-/*
-    public String getUID() {
-        return UID;
-    }
-
-    public void setUID(String UID) {
-        this.UID = UID;
-    }*/
 }

@@ -12,8 +12,10 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -29,14 +31,11 @@ import com.google.firebase.database.ValueEventListener;
 public class Main2Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     public Toolbar toolbar;
     TextView Emp_Id,Emp_Name,Designation;
-    String id;
-    String name;
-    String designation;
+    String id,first_name,last_name,designation;
     FirebaseAuth  firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    private String UID ;
 
     public DrawerLayout HomedrawerLayout;
     public NavigationView HomeNavigationView;
@@ -67,11 +66,13 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         Emp_Name = HomeNavigationView.getHeaderView(0).findViewById(R.id.user_name_nav_drw);
         Designation = HomeNavigationView.getHeaderView(0).findViewById(R.id.user_designation_nav_drw);
         setdata_in_drawer_layout();
+
         navController = Navigation.findNavController(this,R.id.home_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,HomedrawerLayout);
         NavigationUI.setupWithNavController(HomeNavigationView,navController);
 
         HomeNavigationView.setNavigationItemSelectedListener(this);
+        //EditProfile_btn.setOnClickListener(this);
 
     }
 
@@ -87,12 +88,13 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
                 if(dataSnapshot.exists())
                 {
                     id = dataSnapshot.child(UID).child("Emp_id").getValue().toString();
-                    name = dataSnapshot.child(UID).child("Name").getValue().toString();
+                    first_name = dataSnapshot.child(UID).child("Firstname").getValue().toString();
+                    last_name = dataSnapshot.child(UID).child("Lastname").getValue().toString();
                     designation = dataSnapshot.child(UID).child("Designation").getValue().toString();
                     Emp_Id.setText(id);
-                    Emp_Name.setText(name);
+                    Emp_Name.setText(first_name+" "+last_name);
                     Designation.setText(designation);
-                    System.out.println("ID="+id+"\n"+"Name="+name+"\n"+"Designation="+designation);
+                    System.out.println("ID="+id+"\n"+"Name="+first_name+" "+last_name+"\n"+"Designation="+designation);
                 }
             }
 
@@ -139,6 +141,9 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.my_booking_nav_draw:
                 navController.navigate(R.id.action_homepage_to_myBookingPage);
+                break;
+            case R.id.edit_profile_nav_drawer:
+                navController.navigate(R.id.action_homepage_to_edit_Profile);
                 break;
         }
         return false;

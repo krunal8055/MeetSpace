@@ -3,6 +3,8 @@ package com.example.meetspace;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
+
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,10 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -54,7 +57,7 @@ public class Filter_page extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getActivity().getApplicationContext();
         data_for_filter = new Bundle();
@@ -63,8 +66,19 @@ public class Filter_page extends Fragment implements View.OnClickListener{
         //AutoCompleteTextView
         mList = retrive_type();
         autoCompleteTextView = view.findViewById(R.id.auto_complete_text_room_catagory);
-        autoCompleteTextView.setThreshold(1);
+        //autoCompleteTextView.setThreshold(1);
         adapter = new Custom_adapter_auto_complete_text(context,R.layout.fragment_filter_page,R.id.auto_complete_text_custom_text_view,mList);
+        adapter.notifyDataSetChanged();
+        autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setTextColor(Color.WHITE);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+
+        });
 /*
         ArrayAdapter<String> room_list_adapter = new ArrayAdapter<>(context,android.R.layout.simple_list_item_1, room_catagory);
         room_list_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -82,7 +96,14 @@ public class Filter_page extends Fragment implements View.OnClickListener{
 
         //RadioButton
         Room_status_radiogroup = view.findViewById(R.id.room_status_radioGroup);
-        OnRadioButtonClicked(view);
+        Room_status_radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                Room_status_radiobutton = view.findViewById(i);
+                String string = Room_status_radiobutton.getText().toString();
+                data_for_filter.putString("status",string);
+            }
+        });
 
         //ApplyButton
         ApplyButton = view.findViewById(R.id.apply_filter_button);
@@ -106,14 +127,6 @@ public class Filter_page extends Fragment implements View.OnClickListener{
         Date_filter.setOnClickListener(this);
         Start_time.setOnClickListener(this);
         End_Time.setOnClickListener(this);
-    }
-
-    public void OnRadioButtonClicked(View view)
-    {
-        int checked = Room_status_radiogroup.getCheckedRadioButtonId();
-        Room_status_radiobutton = view.findViewById(checked);
-        data_for_filter.putString("status",Room_status_radiobutton.getText().toString());
-
     }
 
     @Override

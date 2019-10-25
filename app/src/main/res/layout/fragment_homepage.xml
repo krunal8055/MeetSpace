@@ -56,6 +56,20 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <ProgressBar
+            android:id="@+id/progressBar_home"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteY="156dp"
+            android:theme="@style/Widget.AppCompat.ProgressBar"
+            android:progressBackgroundTint="@color/dark_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linear_for_search_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

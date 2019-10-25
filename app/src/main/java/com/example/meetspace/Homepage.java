@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,17 +54,15 @@ public class Homepage extends Fragment {
     DatabaseReference databaseReference;
     EditText editText;
     ImageButton Filter_button;
-    ArrayList<list_data> datalist;
+    ArrayList<list_data> datalist,filtered_list;
     RecyclerView recyclerView;
     List_Adapter listAdapter;
-    String Roomno;
-    Bundle recieved_data;
-
+    Bundle recieved_data,SelectedRoom;
+    ProgressBar progressBar;
 
     public Homepage() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,12 +70,10 @@ public class Homepage extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_homepage, container, false);
     }
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        progressBar = view.findViewById(R.id.progressBar_home);
         recieved_data=getArguments();
         if(recieved_data!=null)
         {
@@ -85,37 +82,52 @@ public class Homepage extends Fragment {
             Log.i("Recieved Data : Start",recieved_data.getString("start_time"));
             Log.i("Recieved Data : End",recieved_data.getString("end_time"));
         }
-
-
-
-
         context = getActivity().getApplicationContext();
        // ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
         recyclerView = view.findViewById(R.id.recycler_home_page);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        listAdapter = new List_Adapter(filtered_list,context);
+        recyclerView.setAdapter(listAdapter);
 
         navController = Navigation.findNavController(view);
 
 //Search Bar code start
         editText = view.findViewById(R.id.search_bar_edit_text_home);
         Filter_button = view.findViewById(R.id.filter_button_home);
+
         editText.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                filter(charSequence.toString());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                filter(editable.toString());
             }
         });
 //search bar code end
+
+
+        /*--------- List Adapter Configuration---------*/
+        datalist = new ArrayList<list_data>();
+        filtered_list = new ArrayList<list_data>();
+        listAdapter = new List_Adapter(filtered_list,context);
+        recyclerView.setAdapter(listAdapter);
+
+
+        /*-------List Adapter Configuration enf----------*/
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        fromFirebaseToList();
+
+
         //FilterButton Action start
         Filter_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,30 +137,29 @@ public class Homepage extends Fragment {
             }
         });
         //FilterButton Action End
+    }
 
-        /*--------- List Adapter Configuration---------*/
-        datalist = new ArrayList<list_data>();
-        listAdapter = new List_Adapter(datalist,context);
-        recyclerView.setAdapter(listAdapter);
-        /*-------List Adapter Configuration enf----------*/
-
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+    private void fromFirebaseToList()
+    {
+        progressBar.setVisibility(View.VISIBLE);
+        datalist.clear();
+        filtered_list.clear();
+        listAdapter.notifyDataSetChanged();
         databaseReference.child("Room").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
+
                     //JSONObject object = new JSONObject();
                     for(DataSnapshot ds : dataSnapshot.getChildren())
                     {
                         datalist.add(new list_data(ds.getKey()));
+                        filtered_list.add(new list_data(ds.getKey()));
                     }
+                    progressBar.setVisibility(View.GONE);
                     listAdapter.notifyDataSetChanged();
-                    initview(datalist);
+                    listAdapter.setOnClickListner(onClickListner);
                 }
             }
 
@@ -157,35 +168,33 @@ public class Homepage extends Fragment {
 
             }
         });
-
     }
+
+
 //for Filter Data from Recycler view
-    private void filter(String toString) {
-        ArrayList<list_data> filtered_list = new ArrayList<>();
+    private void filter(String FilterString) {
+        filtered_list.clear();
         for(list_data item :datalist)
         {
-            if(item.getRoom_no().toLowerCase().startsWith(toString.toLowerCase()))
+            if(item.getRoom_no().toLowerCase().startsWith(FilterString.toLowerCase()))
             {
-                filtered_list.add(item);
+                    filtered_list.add(item);
             }
         }
-        listAdapter.filterlist(filtered_list);
+        listAdapter.notifyDataSetChanged();
     }
 
-    public void initview(List<list_data> data)
-    {
-        listAdapter.setOnClickListner(onClickListner);
-    }
+
     public View.OnClickListener onClickListner = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
             //Toast.makeText(getActivity().getApplicationContext(),datalist.get(position).getRoom_no()+" Selected!",Toast.LENGTH_LONG).show();
-            Bundle room_no_bundle = new Bundle();
-            room_no_bundle.putString("Room_no",datalist.get(position).getRoom_no());
-            navController.navigate(R.id.action_homepage_to_room_Detail_page,room_no_bundle);
+            SelectedRoom = new Bundle();
+            SelectedRoom.putString("SelectedRoomNo",datalist.get(position).getRoom_no());
 
+            navController.navigate(R.id.action_homepage_to_room_Detail_page,SelectedRoom);
             //navController.navigate(R.id.To_Room_Detail,Data);   to_room_detail is id from navigation graph and data is data which u can send to that page with bundle
         }
     };

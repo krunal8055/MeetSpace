@@ -34,17 +34,12 @@ public class MyBookingPage extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //tabLayout2.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //tableLayout.setVisibility(View.GONE);
     }
-
-//tableLayout.setVisibility(View.VISIBLE);
-    // tableLayout.setVisibility(View.GONE);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

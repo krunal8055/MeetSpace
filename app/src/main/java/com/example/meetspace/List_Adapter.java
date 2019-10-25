@@ -54,7 +54,6 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.ViewHolder> 
             holder.room_image_list.setImageResource(R.drawable.meeting_room_1);
         }
 
-
     }
 
     @Override

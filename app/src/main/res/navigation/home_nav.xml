@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_homepage_to_room_Detail_page"
             app:destination="@id/room_Detail_page" />
+        <action
+            android:id="@+id/action_homepage_to_edit_Profile"
+            app:destination="@id/edit_Profile" />
     </fragment>
     <fragment
         android:id="@+id/myBookingPage"
@@ -44,4 +47,13 @@
         android:name="com.example.meetspace.Room_Detail_page"
         android:label="fragment_room__detail_page"
         tools:layout="@layout/fragment_room__detail_page" />
+    <fragment
+        android:id="@+id/edit_Profile"
+        android:name="com.example.meetspace.Edit_Profile"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit__profile" >
+        <action
+            android:id="@+id/action_edit_Profile_to_homepage"
+            app:destination="@id/homepage" />
+    </fragment>
 </navigation>

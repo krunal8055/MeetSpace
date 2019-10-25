@@ -34,7 +34,7 @@ public class Room_Detail_page extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bundle = getArguments();
-        String room_no = bundle.getString("Room_no");
+        String room_no = bundle.getString("SelectedRoomNo");
         RoomNo = view.findViewById(R.id.room_no_room_detail);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("RoomNo "+room_no);
         RoomNo.setText(room_no);
