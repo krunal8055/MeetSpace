@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -48,6 +50,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         firebaseAuth = FirebaseAuth.getInstance();
 
         setupNavigation();
+
     }
 
     private void setupNavigation() {
@@ -118,7 +121,8 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
 
             HomedrawerLayout.closeDrawer(GravityCompat.START);
 
-        }else {
+        }
+        else {
             super.onBackPressed();
         }
     }

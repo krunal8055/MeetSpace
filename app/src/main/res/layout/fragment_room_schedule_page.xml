@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".RoomSchedule_page">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+        <LinearLayout
+            android:id="@+id/linear_calender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/calendarView"
+                app:primaryColor="@color/light_blue"
+                app:textColor="@android:color/white"
+                app:todayItem_textColor="@android:color/holo_green_light"
+                app:showWeek="true"
+                app:todayItem_background="@drawable/circle_white_stroke_background"
+                app:selectedItem_background="@drawable/circle_white_solid_background"
+                app:selectedItem_textColor="@android:color/black"
+                app:buttonLeft_drawableTintColor="@android:color/white"
+                app:buttonRight_drawableTintColor="@android:color/white"
+                app:expandIconColor="@android:color/white"
+                app:eventColor="@android:color/holo_green_light">
+            </com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar>
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/event_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/linear_calender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <TextView
+                android:id="@+id/date_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello this is fragment!"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="@color/dark_grey"/>
+
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

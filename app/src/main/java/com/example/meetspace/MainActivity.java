@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         main_toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(main_toolbar);
+
         navController = Navigation.findNavController(this, R.id.login_fragment);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
