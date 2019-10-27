@@ -3,6 +3,6 @@
     <color name="Orange">#F9A828</color>
     <color name="light_silver">#ececeb</color>
     <color name="light_blue">#07617d</color>
-    <color name="dark_grey">#2e383f</color>
+    <color name="dark_grey">#c17900</color>
     <color name="colorErroronAuth">@android:color/holo_red_dark</color>
 </resources>

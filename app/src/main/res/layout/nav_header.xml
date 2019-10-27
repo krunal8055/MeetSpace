@@ -29,18 +29,24 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
     <LinearLayout
         android:id="@+id/linear_name_nav_drw_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="30dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/linear_emp_id_nav_drw_header">
+        android:layout_weight="1">
 
         <!-- <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="10dp"
             android:textSize="20dp" />
     </LinearLayout>
 
@@ -69,14 +75,8 @@
             android:id="@+id/linear_emp_id_nav_drw_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linear_name_nav_drw_header"
-            app:layout_constraintBottom_toTopOf="@+id/linear_designation_nav_drw_header"
-            >
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/emp_id_txt_nav_drw"
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="10dp"
                 android:textSize="20dp" />
         </LinearLayout>
 
@@ -99,12 +99,8 @@
             android:id="@+id/linear_designation_nav_drw_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linear_emp_id_nav_drw_header"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/designation_txt_nav_drw"
@@ -120,36 +116,31 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
                 android:textSize="20dp"
-                android:layout_marginStart="30dp"/>
+                android:layout_marginStart="10dp"/>
         </LinearLayout>
+    </LinearLayout>
 
-    <!--</LinearLayout>-->
-    <LinearLayout
-        android:id="@+id/edit_button_linear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        android:gravity="end">
+    <!--</LinearLayout>
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:backgroundTint="@android:color/transparent"
+            android:alpha="0.9"
+            app:cardCornerRadius="50dp"
             android:orientation="horizontal"
+            android:outlineProvider="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            >
 
             <androidx.cardview.widget.CardView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:alpha="0.3"
-                android:backgroundTint="@android:color/black"
-                app:cardCornerRadius="30dp" />
+                android:outlineProvider="none"
+                android:backgroundTint="@android:color/transparent"
+                />
 
             <ImageButton
                 android:id="@+id/edit_profile_button_nav_draw"
@@ -159,6 +150,5 @@
                 android:background="@android:color/transparent"
                 android:padding="16dp"
                 android:src="@drawable/edit_icon" />
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+        </androidx.cardview.widget.CardView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

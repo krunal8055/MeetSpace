@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_homepage_to_room_Detail_page"
             app:destination="@id/room_Detail_page" />
+        <action
+            android:id="@+id/action_homepage_to_edit_Profile"
+            app:destination="@id/edit_Profile" />
     </fragment>
     <fragment
         android:id="@+id/myBookingPage"
@@ -43,5 +46,40 @@
         android:id="@+id/room_Detail_page"
         android:name="com.example.meetspace.Room_Detail_page"
         android:label="fragment_room__detail_page"
-        tools:layout="@layout/fragment_room__detail_page" />
+        tools:layout="@layout/fragment_room__detail_page" >
+        <action
+            android:id="@+id/action_room_Detail_page_to_roomSchedule_page"
+            app:destination="@id/roomSchedule_page" />
+        <action
+            android:id="@+id/action_room_Detail_page_to_room_booking_f1"
+            app:destination="@id/room_booking_f1" />
+    </fragment>
+    <fragment
+        android:id="@+id/edit_Profile"
+        android:name="com.example.meetspace.Edit_Profile"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit__profile" >
+        <action
+            android:id="@+id/action_edit_Profile_to_homepage"
+            app:destination="@id/homepage" />
+    </fragment>
+    <fragment
+        android:id="@+id/roomSchedule_page"
+        android:name="com.example.meetspace.RoomSchedule_page"
+        android:label="Room Schedule"
+        tools:layout="@layout/fragment_room_schedule_page" />
+    <fragment
+        android:id="@+id/room_booking_f1"
+        android:name="com.example.meetspace.room_booking_f1"
+        android:label="Room Booking"
+        tools:layout="@layout/fragment_room_booking_f1" >
+        <action
+            android:id="@+id/action_room_booking_f1_to_room_booking_f2"
+            app:destination="@id/room_booking_f2" />
+    </fragment>
+    <fragment
+        android:id="@+id/room_booking_f2"
+        android:name="com.example.meetspace.room_booking_f2"
+        android:label="fragment_room_booking_f2"
+        tools:layout="@layout/fragment_room_booking_f2" />
 </navigation>

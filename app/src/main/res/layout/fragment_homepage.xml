@@ -12,22 +12,28 @@
             android:id="@+id/linear_for_search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/dark_grey"
+            android:background="@color/light_blue"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/recycler_home_page"
             android:padding="25dp"
             android:orientation="horizontal"
-            android:layout_marginTop="?attr/actionBarSize">
+            android:layout_marginTop="?attr/actionBarSize"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
 
             <EditText
                 android:id="@+id/search_bar_edit_text_home"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:maxLength="3"
                 android:background="@android:color/white"
-                android:hint="  Enter Room to Search" />
+                android:hint="Enter Room to Search"
+                android:paddingStart="16dp"
+                android:paddingEnd="48dp"/>
             <ImageButton
                 android:id="@+id/filter_button_home"
                 android:layout_width="wrap_content"
@@ -55,6 +61,20 @@
             app:layout_constraintTop_toBottomOf="@+id/linear_for_search_bar">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/progressBar_home"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteY="156dp"
+            android:theme="@style/Widget.AppCompat.ProgressBar"
+            android:progressBackgroundTint="@color/light_blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linear_for_search_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
