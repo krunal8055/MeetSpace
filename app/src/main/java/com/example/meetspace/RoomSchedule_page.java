@@ -37,7 +37,7 @@ public class RoomSchedule_page extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        date = view.findViewById(R.id.date_event);
+        date = view.findViewById(R.id.calendarView);
         final CollapsibleCalendar collapsibleCalendar = view.findViewById(R.id.calendarView);
         collapsibleCalendar.setCalendarListener(new CollapsibleCalendar.CalendarListener() {
             @Override
