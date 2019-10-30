@@ -2,21 +2,18 @@ package com.example.meetspace;
 
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.shrikanthravi.collapsiblecalendarview.data.Day;
 import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar;
-
-import java.util.Calendar;
 
 
 public class RoomSchedule_page extends Fragment {
@@ -37,7 +34,7 @@ public class RoomSchedule_page extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        date = view.findViewById(R.id.calendarView);
+        date = view.findViewById(R.id.date_event);
         final CollapsibleCalendar collapsibleCalendar = view.findViewById(R.id.calendarView);
         collapsibleCalendar.setCalendarListener(new CollapsibleCalendar.CalendarListener() {
             @Override

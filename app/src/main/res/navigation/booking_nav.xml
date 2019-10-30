@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/booking_nav"
+    app:startDestination="@id/bookig_f1">
+
+    <fragment
+        android:id="@+id/bookig_f1"
+        android:name="com.example.meetspace.bookig_f1"
+        android:label="fragment_bookig_f1"
+        tools:layout="@layout/fragment_bookig_f1" >
+        <action
+            android:id="@+id/action_bookig_f1_to_booking_f2"
+            app:destination="@id/booking_f2" />
+    </fragment>
+    <fragment
+        android:id="@+id/booking_f2"
+        android:name="com.example.meetspace.booking_f2"
+        android:label="fragment_booking_f2"
+        tools:layout="@layout/fragment_booking_f2" />
+</navigation>

@@ -1,10 +1,13 @@
 package com.example.meetspace;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,14 +16,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -114,8 +109,11 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
         }
         else if(view == BookRoom)
         {
-            navController.navigate(R.id.action_room_Detail_page_to_room_booking_f1);
-
+            //navController.navigate(R.id.action_room_Detail_page_to_room_booking_f1);
+            Intent i = new Intent(getContext(), Booking_Activity.class);
+            i.putExtra("navigation :","From Main Activity2 to Booking Activity");
+            startActivity(i);
+            getActivity().finish();
         }
 
     }
