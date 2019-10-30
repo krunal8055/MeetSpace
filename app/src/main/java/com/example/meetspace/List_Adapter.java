@@ -77,9 +77,9 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.ViewHolder> 
             itemView.setOnClickListener(itemClickListner);
         }
     }
-    public void filterlist(ArrayList<list_data> FilteredList)
+    /*public void filterlist(ArrayList<list_data> FilteredList)
     {
         listarray = FilteredList;
         notifyDataSetChanged();
-    }
+    }*/
 }

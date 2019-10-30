@@ -64,7 +64,8 @@
                     android:paddingBottom="30dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/room_no_book_room1">
+                    app:layout_constraintTop_toBottomOf="@+id/room_no_book_room1"
+                    android:focusableInTouchMode="true">
                     <!--Date Linear Layout start-->
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -119,7 +120,7 @@
                                 android:textSize="20dp" />
 
                             <TextView
-                                android:id="@+id/start_time_filter"
+                                android:id="@+id/start_time_booking"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -146,7 +147,7 @@
                                 android:textSize="20dp" />
 
                             <TextView
-                                android:id="@+id/end_time_filter"
+                                android:id="@+id/end_time_booking"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
@@ -178,7 +179,7 @@
                             android:textColor="@android:color/black"
                             android:textSize="20dp" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/reason_booking1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -187,6 +188,7 @@
                             android:background="@drawable/textview_boarder_black"
                             android:gravity="center"
                             android:hint="Please Enter Reason"
+                            android:focusableInTouchMode="true"
                             android:padding="10dp"
                             android:textColor="@color/Orange"
                             android:textColorHint="@color/Orange"
@@ -210,7 +212,7 @@
                             android:textColor="@android:color/black"
                             android:textSize="20dp" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/no_person_booking1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -219,6 +221,7 @@
                             android:background="@drawable/textview_boarder_black"
                             android:gravity="center"
                             android:hint="Please Enter No of Person"
+                            android:focusableInTouchMode="true"
                             android:padding="10dp"
                             android:inputType="numberDecimal"
                             android:minEms="2"
@@ -238,7 +241,7 @@
 
                     </LinearLayout>
                     <Button
-                        android:id="@+id/next_button_f1"
+                        android:id="@+id/next_button_booking_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Next"

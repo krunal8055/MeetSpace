@@ -1,16 +1,23 @@
 package com.example.meetspace;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 public class Booking_Activity extends AppCompatActivity {
     Toolbar toolbar;
     NavController navController;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +31,23 @@ public class Booking_Activity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.booking_fragment);
     }
 
-    @Override
+   @Override
+   public boolean onSupportNavigateUp() {
+       onBackPressed();
+       return true;
+   }
+
+   @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            Room_Detail_page rm = new Room_Detail_page();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.addToBackStack(null);
-            ft.replace(R.id.room_Detail_page,rm);
+        if(getFragmentManager().getBackStackEntryCount() == 0)
+        {
+            Intent i = new Intent(Booking_Activity.this,Main2Activity.class);
+            i.putExtra("Back","BackPressedOnBooking");
+            startActivity(i);
             finish();
-        } else {
-            super.onBackPressed();
+        }
+        else {
+            onBackPressed();
         }
     }
-
 }

@@ -38,6 +38,8 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
     public DrawerLayout HomedrawerLayout;
     public NavigationView HomeNavigationView;
@@ -48,6 +50,21 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        Intent i = getIntent();
+        String back = i.getStringExtra("Back");
+//change Fragment from Home to Room detail
+        if(back == "BackPressedOnBooking")
+        {
+            Room_Detail_page rd_page = new Room_Detail_page();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.home_fragment,rd_page);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            finish();
+        }
+
+
 
         setupNavigation();
 

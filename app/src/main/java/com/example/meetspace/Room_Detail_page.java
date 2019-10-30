@@ -111,7 +111,6 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
         {
             //navController.navigate(R.id.action_room_Detail_page_to_room_booking_f1);
             Intent i = new Intent(getContext(), Booking_Activity.class);
-            i.putExtra("navigation :","From Main Activity2 to Booking Activity");
             startActivity(i);
             getActivity().finish();
         }

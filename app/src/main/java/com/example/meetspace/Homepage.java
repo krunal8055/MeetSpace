@@ -70,6 +70,7 @@ public class Homepage extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_homepage, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -88,6 +89,7 @@ public class Homepage extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         listAdapter = new List_Adapter(filtered_list,context);
         recyclerView.setAdapter(listAdapter);
+        //
 
         navController = Navigation.findNavController(view);
 

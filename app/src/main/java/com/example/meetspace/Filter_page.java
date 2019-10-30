@@ -39,7 +39,6 @@ public class Filter_page extends Fragment implements View.OnClickListener{
     Button ApplyButton;
     Context context;
     AutoCompleteTextView autoCompleteTextView;
-    //String[] room_catagory = {"Class Room","Class Room1","Class Room2"};
     List<RoomCatagory> mList;
     Custom_adapter_auto_complete_text adapter;
     Bundle data_for_filter;
