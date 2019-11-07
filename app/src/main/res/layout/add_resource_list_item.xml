@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+    <ImageButton
+        android:id="@+id/cancel_resource_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/cancel_invite_btn"
+        android:tint="@color/light_blue"
+        android:background="@android:color/transparent"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/resource_name_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Resource Name"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:gravity="center_vertical"
+        android:layout_weight="0.2"
+        android:paddingStart="20dp"/>
+    <Button
+        android:id="@+id/add_button_resource_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        />
+    <EditText
+        android:id="@+id/qty_resource_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:hint="qty"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:maxLength="2"
+        android:visibility="gone"/>
+
+</LinearLayout>

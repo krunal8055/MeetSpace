@@ -3,6 +3,17 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/cancel_invite_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/cancel_invite_btn"
+        android:tint="@color/light_blue"
+        android:background="@android:color/transparent"
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/user_name_invite_list"
         android:layout_width="wrap_content"
@@ -14,13 +25,14 @@
         android:layout_weight="1"
         android:paddingEnd="20dp"
         android:textAlignment="center"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_gravity="center_vertical"/>
     <Button
+        android:layout_gravity="center_vertical"
         android:id="@+id/invite_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Invite"
-        android:background="@android:color/transparent"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginEnd="20dp" />
 
 </LinearLayout>

@@ -21,7 +21,7 @@
         android:layout_height="0dp"
         android:id="@+id/booking_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/booking_toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

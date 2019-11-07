@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,13 +26,17 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Room_Detail_page extends Fragment implements View.OnClickListener {
-    TextView RoomNo,Catagory,FloorNo,Status,Capacity,SoftwareList,HardwareList;
+    ImageView Room_Image;
+    TextView Catagory,FloorNo,Status,Capacity,SoftwareList,HardwareList;
     Button Check_Schedule,BookRoom;
     Bundle bundle;
     String SelectedRoom;
+    int roomno;
+    int position = 0;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     NavController navController;
+    ProgressBar progressBar;
     public Room_Detail_page() {
         // Required empty public constructor
     }
@@ -45,16 +51,13 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        progressBar = view.findViewById(R.id.progress_bar_room_detail);
         navController = Navigation.findNavController(view);
 
         bundle = getArguments();
         SelectedRoom = bundle.getString("SelectedRoomNo");
-        //RoomNo = view.findViewById(R.id.room_no_room_detail);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("RoomNo "+SelectedRoom);
-        //RoomNo.setText(room_no);
-
-
+        Room_Image = view.findViewById(R.id.room_img_room_detail);
         Catagory = view.findViewById(R.id.catagory_room_detail);
         FloorNo = view.findViewById(R.id.floor_room_detail);
         Status = view.findViewById(R.id.room_status_room_detail);
@@ -72,6 +75,7 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
     }
 
     private void getRoomDetails() {
+        progressBar.setVisibility(View.VISIBLE);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("Room");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -89,16 +93,41 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
                             Status.setTextColor(Color.GREEN);
                             Status.setText(status);
                         }
+                        setRoomImage();
                         Catagory.setText(dataSnapshot.child(SelectedRoom).child("Roomcatagory").getValue().toString());
                         FloorNo.setText(dataSnapshot.child(SelectedRoom).child("Floorno").getValue().toString());
                         Capacity.setText(dataSnapshot.child(SelectedRoom).child("Roomcapacity").getValue().toString());
-
+                        progressBar.setVisibility(View.GONE);
         }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+    }
+
+    private void setRoomImage() {
+        position = bundle.getInt("SelectedPosition");
+        if(position % 5 == 0)
+        {
+            Room_Image.setImageResource(R.drawable.meeting_room_5);
+        }
+        else if(position % 5 == 1)
+        {
+            Room_Image.setImageResource(R.drawable.meeting_room_4);
+        }
+        else if(position % 5 == 2)
+        {
+            Room_Image.setImageResource(R.drawable.meeting_room_3);
+        }
+        else if(position % 5 == 3)
+        {
+            Room_Image.setImageResource(R.drawable.meeting_room_2);
+        }
+        else if(position % 5 == 4)
+        {
+            Room_Image.setImageResource(R.drawable.meeting_room_1);
+        }
     }
 
     @Override
@@ -111,8 +140,11 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
         {
             //navController.navigate(R.id.action_room_Detail_page_to_room_booking_f1);
             Intent i = new Intent(getContext(), Booking_Activity.class);
+            i.putExtra("Position",position);
+            roomno = Integer.valueOf(SelectedRoom);
+            i.putExtra("Roomno",roomno);
             startActivity(i);
-            getActivity().finish();
+            //getActivity().finish();
         }
 
     }

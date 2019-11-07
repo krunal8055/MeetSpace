@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Event_view">
+
+    <TextView
+        android:id="@+id/text_event"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Event Found!"
+        android:textSize="30dp"
+        android:textColor="@color/Orange"
+        android:gravity="center"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:id="@+id/ribbon_icon"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:src="@drawable/icon_ribbon"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone">
+        </ImageView>
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10sp"
+            app:layout_constraintStart_toStartOf="@+id/ribbon_icon"
+            app:layout_constraintTop_toTopOf="@id/ribbon_icon"
+            app:layout_constraintBottom_toBottomOf="@id/ribbon_icon"
+            app:layout_constraintEnd_toEndOf="@id/ribbon_icon">
+           <TextView
+               android:id="@+id/date_event"
+               android:layout_width="300dp"
+               android:layout_height="80dp"
+               android:hint="Date"
+               android:textColorHint="@android:color/white"
+               android:textColor="@android:color/white"
+               android:textSize="30sp"
+               android:gravity="center"
+               android:visibility="gone"/>
+            <TextView
+                android:id="@+id/event_ep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:hint="events"
+                android:textColorHint="@color/Orange"
+                android:textColor="@color/Orange"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

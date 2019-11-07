@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 public class List_Adapter extends RecyclerView.Adapter<List_Adapter.ViewHolder> {

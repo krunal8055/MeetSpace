@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,16 +31,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class booking_f2 extends Fragment {
+public class booking_f2 extends Fragment implements View.OnClickListener {
     Context context;
     TextView Search_user_List;
+    Button NextButton;
     RecyclerView PeopleInviteList;
     User_list_adapter user_list_adapter;
     ArrayList<UserList> Users,Users_Filtered_list;
     FirebaseDatabase fb_db;
     DatabaseReference db_ref;
     ProgressBar progressBar;
-
+    NavController navController;
 
 
     public booking_f2() {
@@ -57,11 +61,11 @@ public class booking_f2 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         context = getActivity().getApplicationContext();
         //Initialization
-
         progressBar = view.findViewById(R.id.progress_bar_invite_list);
-
+        navController = Navigation.findNavController(view);
         //Recycler View
         PeopleInviteList = view.findViewById(R.id.invite_list_booking2);
+        NextButton = view.findViewById(R.id.next_button_booking_2);
         PeopleInviteList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         user_list_adapter = new User_list_adapter(Users_Filtered_list,context);
         PeopleInviteList.setAdapter(user_list_adapter);
@@ -90,6 +94,7 @@ public class booking_f2 extends Fragment {
         user_list_adapter = new User_list_adapter(Users_Filtered_list,context);
         PeopleInviteList.setAdapter(user_list_adapter);
         getUserListFromDB();
+        NextButton.setOnClickListener(this);
     }
 
     private void getUserListFromDB() {
@@ -135,7 +140,8 @@ public class booking_f2 extends Fragment {
         public void onClick(View view) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
-            Log.i("Selected Position", String.valueOf(position));
+
+            Log.i("Selected Position", Users.get(position).toString());
         }
     };
 
@@ -154,4 +160,11 @@ public class booking_f2 extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        if(view == NextButton)
+        {
+            navController.navigate(R.id.action_booking_f2_to_booking_f3);
+        }
+    }
 }

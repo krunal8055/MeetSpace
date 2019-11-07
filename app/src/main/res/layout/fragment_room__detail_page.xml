@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toTopOf="@+id/info_linear_room_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -250,7 +249,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Book This Room"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                />
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar_room_detail"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progressBackgroundTint="@color/light_blue"
+            android:theme="@style/Widget.AppCompat.ProgressBar"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

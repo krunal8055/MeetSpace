@@ -1,5 +1,11 @@
 package com.example.meetspace;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,17 +17,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +36,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
     DatabaseReference databaseReference;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-
     public DrawerLayout HomedrawerLayout;
     public NavigationView HomeNavigationView;
     public NavController navController;
@@ -50,22 +45,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         firebaseAuth = FirebaseAuth.getInstance();
-
-        Intent i = getIntent();
-        String back = i.getStringExtra("Back");
-//change Fragment from Home to Room detail
-        if(back == "BackPressedOnBooking")
-        {
-            Room_Detail_page rd_page = new Room_Detail_page();
-            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.home_fragment,rd_page);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-            finish();
-        }
-
-
-
         setupNavigation();
 
     }
@@ -87,7 +66,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         Designation = HomeNavigationView.getHeaderView(0).findViewById(R.id.user_designation_nav_drw);
         setdata_in_drawer_layout();
 
-        navController = Navigation.findNavController(this,R.id.home_fragment);
+        navController = Navigation.findNavController(this, R.id.home_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,HomedrawerLayout);
         NavigationUI.setupWithNavController(HomeNavigationView,navController);
 
@@ -127,20 +106,18 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(Navigation.findNavController(this,R.id.home_fragment),HomedrawerLayout);
+        return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.home_fragment),HomedrawerLayout);
     }
-
 
     @Override
     public void onBackPressed() {
-
-        if (HomedrawerLayout.isDrawerOpen(GravityCompat.START)){
-
+        if(HomedrawerLayout.isDrawerOpen(GravityCompat.START))
+        {
             HomedrawerLayout.closeDrawer(GravityCompat.START);
-
         }
-        else {
-            super.onBackPressed();
+        else
+        {
+                super.onBackPressed();
         }
     }
 
@@ -156,7 +133,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.log_out_nav_draw:
                 firebaseAuth.signOut();
-                Intent i = new Intent(this,MainActivity.class);
+                Intent i = new Intent(this, MainActivity.class);
                 startActivity(i);
                 finish();
                 break;

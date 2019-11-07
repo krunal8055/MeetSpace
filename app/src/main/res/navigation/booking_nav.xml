@@ -18,5 +18,32 @@
         android:id="@+id/booking_f2"
         android:name="com.example.meetspace.booking_f2"
         android:label="fragment_booking_f2"
-        tools:layout="@layout/fragment_booking_f2" />
+        tools:layout="@layout/fragment_booking_f2" >
+        <action
+            android:id="@+id/action_booking_f2_to_booking_f3"
+            app:destination="@id/booking_f3" />
+    </fragment>
+    <fragment
+        android:id="@+id/booking_f3"
+        android:name="com.example.meetspace.booking_f3"
+        android:label="fragment_booking_f3"
+        tools:layout="@layout/fragment_booking_f3" >
+        <action
+            android:id="@+id/action_booking_f3_to_booking_f4"
+            app:destination="@id/booking_f4" />
+    </fragment>
+    <fragment
+        android:id="@+id/booking_f4"
+        android:name="com.example.meetspace.booking_f4"
+        android:label="fragment_booking_f4"
+        tools:layout="@layout/fragment_booking_f4" >
+        <action
+            android:id="@+id/action_booking_f4_to_booking_done"
+            app:destination="@id/booking_done" />
+    </fragment>
+    <fragment
+        android:id="@+id/booking_done"
+        android:name="com.example.meetspace.booking_done"
+        android:label="fragment_booking_done"
+        tools:layout="@layout/fragment_booking_done" />
 </navigation>

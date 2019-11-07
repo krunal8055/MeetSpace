@@ -4,14 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
-
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +17,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +40,9 @@ public class Filter_page extends Fragment implements View.OnClickListener{
     AutoCompleteTextView autoCompleteTextView;
     List<RoomCatagory> mList;
     Custom_adapter_auto_complete_text adapter;
-    Bundle data_for_filter;
+    Bundle StatusByData;
+    Bundle FiterByData;
+    Bundle finalBundle;
     NavController navController;
 
     public Filter_page() {
@@ -59,14 +60,17 @@ public class Filter_page extends Fragment implements View.OnClickListener{
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getActivity().getApplicationContext();
-        data_for_filter = new Bundle();
+        StatusByData = new Bundle();
+        FiterByData = new Bundle();
         navController = Navigation.findNavController(view);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //AutoCompleteTextView
         mList = retrive_type();
         autoCompleteTextView = view.findViewById(R.id.auto_complete_text_room_catagory);
         //autoCompleteTextView.setThreshold(1);
-        adapter = new Custom_adapter_auto_complete_text(context,R.layout.fragment_filter_page,R.id.auto_complete_text_custom_text_view,mList);
+        adapter = new Custom_adapter_auto_complete_text(context, R.layout.fragment_filter_page, R.id.auto_complete_text_custom_text_view,mList);
         adapter.notifyDataSetChanged();
         autoCompleteTextView.setAdapter(adapter);
         autoCompleteTextView.setTextColor(Color.WHITE);
@@ -78,14 +82,6 @@ public class Filter_page extends Fragment implements View.OnClickListener{
             }
 
         });
-/*
-        ArrayAdapter<String> room_list_adapter = new ArrayAdapter<>(context,android.R.layout.simple_list_item_1, room_catagory);
-        room_list_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        room_list_adapter.notifyDataSetChanged();
-        autoCompleteTextView.setThreshold(1);
-        autoCompleteTextView.setTextColor(Color.WHITE);
-        autoCompleteTextView.setAdapter(room_list_adapter);
-        //autoCompleteTextView.setKeyListener(null);*/
 
         //Date and Time Picker
         Date_filter = view.findViewById(R.id.date_filter);
@@ -100,10 +96,9 @@ public class Filter_page extends Fragment implements View.OnClickListener{
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 Room_status_radiobutton = view.findViewById(i);
                 String string = Room_status_radiobutton.getText().toString();
-                data_for_filter.putString("status",string);
+                StatusByData.putString("status",string);
             }
         });
-
         //ApplyButton
         ApplyButton = view.findViewById(R.id.apply_filter_button);
         ApplyButton.setOnClickListener(this);
@@ -138,12 +133,18 @@ public class Filter_page extends Fragment implements View.OnClickListener{
             int mm = calendar.get(Calendar.MONTH);
             int dd = calendar.get(Calendar.DAY_OF_MONTH);
 
-            datePicker = new DatePickerDialog(getActivity(),R.style.TimePickerTheme,new DatePickerDialog.OnDateSetListener() {
+            datePicker = new DatePickerDialog(getActivity(), R.style.TimePickerTheme,new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     String date = String.valueOf(dayOfMonth)+"-"+String.valueOf(monthOfYear)+"-"+String.valueOf(year);
                     Date_filter.setText(date);
-                    data_for_filter.putString("date",date);
+                    if(date!="") {
+                        FiterByData.putString("date", date);
+                    }
+                    else
+                    {
+                        FiterByData.putString("date", "");
+                    }
                 }
             }, yy, mm, dd);
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
@@ -187,7 +188,13 @@ public class Filter_page extends Fragment implements View.OnClickListener{
                     String start_time = String.valueOf(Hour)+":"+String.valueOf(min)+" "+timeSet;
 
                     Start_time.setText(start_time);
-                    data_for_filter.putString("start_time",Start_time.getText().toString());
+                    if (start_time != "") {
+                        FiterByData.putString("start_time", start_time);
+                    }
+                    else {
+                        FiterByData.putString("start_time", "");
+                    }
+
                 }
             },hour,minute,false);
             timePicker.show();
@@ -228,14 +235,21 @@ public class Filter_page extends Fragment implements View.OnClickListener{
 
                     String end_time = String.valueOf(Hour)+":"+String.valueOf(min)+" "+timeSet;
                     End_Time.setText(end_time);
-                    data_for_filter.putString("end_time",end_time);
+                    if(end_time != "") {
+                        FiterByData.putString("end_time", end_time);
+                    }
+                    else {
+                        FiterByData.putString("end_time", "");
+                    }
                 }
             },hour,minute,false);
             timePicker.show();
         }
         else if(view == ApplyButton)
         {
-            navController.navigate(R.id.action_filter_page_to_homepage,data_for_filter);
+            navController.navigate(R.id.action_filter_page_to_homepage,FiterByData);
         }
     }
+
+
 }

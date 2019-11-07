@@ -2,17 +2,7 @@ package com.example.meetspace;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +10,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 public class WelcomePage extends Fragment {
     Context context;
@@ -42,7 +38,7 @@ public class WelcomePage extends Fragment {
         context = getActivity().getApplicationContext();
         ImageView imageView = view.findViewById(R.id.imageView3);
         TextView textView = view.findViewById(R.id.name);
-        Animation animation = AnimationUtils.loadAnimation(context,R.anim.fade);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade);
         imageView.startAnimation(animation);
         textView.startAnimation(animation);
 

@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".bookig_f1">
+    tools:context=".bookig_f1"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:fillViewport="true">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:fillViewport="true">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -45,8 +38,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Room NO :"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp" />
+                        android:textColor="@color/light_blue"
+                        android:textSize="25dp" />
 
                     <TextView
                         android:id="@+id/room_no_booking1"
@@ -54,18 +47,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:textColor="@android:color/white"
-                        android:textSize="18sp"
+                        android:textSize="22dp"
                         android:hint="room no"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="30dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/room_no_book_room1"
-                    android:focusableInTouchMode="true">
+                    app:layout_constraintTop_toBottomOf="@+id/room_no_book_room1">
                     <!--Date Linear Layout start-->
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -224,22 +215,12 @@
                             android:focusableInTouchMode="true"
                             android:padding="10dp"
                             android:inputType="numberDecimal"
-                            android:minEms="2"
+                            android:maxLength="2"
                             android:textColor="@color/Orange"
                             android:textColorHint="@color/Orange"
                             android:textSize="20dp" />
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp">
 
-                    </LinearLayout>
                     <Button
                         android:id="@+id/next_button_booking_1"
                         android:layout_width="match_parent"
@@ -247,14 +228,7 @@
                         android:text="Next"
                         android:textColor="@android:color/white"
                         android:background="@color/Orange"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="20sp"
-                        />
+                        android:layout_margin="20dp"/>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </RelativeLayout>
-    </ScrollView>
-
-</FrameLayout>
+</ScrollView>

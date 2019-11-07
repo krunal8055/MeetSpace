@@ -2,19 +2,7 @@ package com.example.meetspace;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,8 +11,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,15 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class Homepage extends Fragment {
 
@@ -78,10 +64,15 @@ public class Homepage extends Fragment {
         recieved_data=getArguments();
         if(recieved_data!=null)
         {
-            Log.i("Recieved Data : Status",recieved_data.getString("status"));
-            Log.i("Recieved Data : Date",recieved_data.getString("date"));
-            Log.i("Recieved Data : Start",recieved_data.getString("start_time"));
-            Log.i("Recieved Data : End",recieved_data.getString("end_time"));
+            if(recieved_data.get("date") != null) {
+                Log.i("Recieved Data : Date", recieved_data.getString("date"));
+            }
+            if(recieved_data.getString("start_time") != null){
+                Log.i("Recieved Data : Start",recieved_data.getString("start_time"));
+            }
+            if(recieved_data.getString("end_time") != null) {
+                Log.i("Recieved Data : End",recieved_data.getString("end_time"));
+            }
         }
         context = getActivity().getApplicationContext();
        // ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -139,6 +130,7 @@ public class Homepage extends Fragment {
 
             }
         });
+
         //FilterButton Action End
     }
 
@@ -196,6 +188,7 @@ public class Homepage extends Fragment {
             //Toast.makeText(getActivity().getApplicationContext(),datalist.get(position).getRoom_no()+" Selected!",Toast.LENGTH_LONG).show();
             SelectedRoom = new Bundle();
             SelectedRoom.putString("SelectedRoomNo",datalist.get(position).getRoom_no());
+            SelectedRoom.putInt("SelectedPosition",position);
 
             navController.navigate(R.id.action_homepage_to_room_Detail_page,SelectedRoom);
             //navController.navigate(R.id.To_Room_Detail,Data);   to_room_detail is id from navigation graph and data is data which u can send to that page with bundle
