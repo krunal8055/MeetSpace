@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoitifcationPage"
+    android:background="@android:color/darker_gray">
+    <TextView
+        android:id="@+id/nil_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="NO More Notifications Available"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@color/light_blue"
+        android:alpha="0.5"
+        android:focusableInTouchMode="false"
+        android:visibility="gone"
+        android:background="@android:color/darker_gray"/>
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/recycler_notification"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:scrollbars="vertical"
+       >
+
+   </androidx.recyclerview.widget.RecyclerView>
+
+</FrameLayout>

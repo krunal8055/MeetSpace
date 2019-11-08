@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -31,6 +33,7 @@ import java.util.Date;
 
 
 public class bookig_f1 extends Fragment implements View.OnClickListener {
+    ProgressBar progressBar;
     ImageView RoomImage;
     TextView RoomNo,BookingDate,BookingStart,BookingEnd;
     EditText BookingReason,No_of_Person;
@@ -59,7 +62,7 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        progressBar = view.findViewById(R.id.progress_bar_booking_details);
         context = getActivity().getApplicationContext();
         sharedPreferences = getActivity().getSharedPreferences("BookingData",context.MODE_PRIVATE);
         navController = Navigation.findNavController(view);
@@ -123,7 +126,7 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
             datePicker = new DatePickerDialog(getActivity(), R.style.TimePickerTheme,new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    String date = String.valueOf(dayOfMonth)+"-"+String.valueOf(monthOfYear)+"-"+String.valueOf(year);
+                    String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
                     BookingDate.setText(date);
                     Log.i("StartTime_booking:",BookingDate.getText().toString());
                 }
@@ -135,43 +138,62 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
         else if(view == BookingStart)
         {
             TimePickerDialog timePicker;
+            Calendar c = Calendar.getInstance();
+            int yy = c.get(Calendar.YEAR);
+            int mm = c.get(Calendar.MONTH);
+            int dd = c.get(Calendar.DAY_OF_MONTH);
+            final String today_date = dd+"/"+mm+"/"+yy;
+
+            //Log.i("Current date:",dd+"/"+mm+"/"+yy);
+
             final Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
+            //final int current_hour = ;
+            //final int current_minute = ;
             timePicker = new TimePickerDialog(getActivity(), R.style.TimePickerTheme, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int Hour, int Minute) {
 
-                    String timeSet = "";
-                    if (Hour > 12)
+                    if(BookingDate.getText().toString().contains(today_date))
                     {
-                        Hour -= 12;
-                        timeSet = "PM";
-                    }
-                    else if (Hour == 0)
-                    {
-                        Hour += 12;
-                        timeSet = "AM";
-                    }
-                    else if (Hour == 12)
-                    {
-                        timeSet = "PM";
+
+                        if(Hour>=calendar.get(Calendar.HOUR_OF_DAY))
+                        {
+                            String M;
+                            //Log.i("Status:", "Booking date is today and Hour>=current");
+                            if(Minute<10)
+                            {
+                               M = "0"+Minute;
+                            }
+                            else
+                            {
+                                M = String.valueOf(Minute);
+                            }
+                            start_time = Hour + ":" + M;
+                            BookingStart.setText(start_time);
+                            Log.i("Start",start_time);
+                            Log.i("Booking Start Time :", BookingStart.getText().toString());
+                        }
+                        else
+                            {
+                                Toast.makeText(context,"Invalid time!",Toast.LENGTH_SHORT).show();
+                            }
                     }
                     else {
-                        timeSet = "AM";
+                        String M;
+                        if(Minute<10)
+                        {
+                            M = "0"+Minute;
+                        }
+                        else {
+                            M = String.valueOf(Minute);
+                        }
+                        start_time = Hour + ":" + M;
+                        BookingStart.setText(start_time);
+                        Log.i("Start",start_time);
+                        Log.i("Booking Start Time :", BookingStart.getText().toString());
                     }
-
-                    String min = "";
-                    if (Minute < 10)
-                        min = "0" + Minute ;
-                    else
-                        min = String.valueOf(Minute);
-
-                    start_time = String.valueOf(Hour)+":"+String.valueOf(min)+" "+timeSet;
-                    BookingStart.setText(start_time);
-                    Log.i("Booking Start Time :",BookingStart.getText().toString());
                 }
-            },hour,minute,false);
+            },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
             timePicker.show();
         }
         //End Time
@@ -179,41 +201,59 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
         {
             TimePickerDialog timePicker;
             final Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
+            //final int hour = ;
+            //final int minute = ;
             timePicker = new TimePickerDialog(getActivity(), R.style.TimePickerTheme, new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int Hour, int Minute) {
-                    String timeSet = "";
-                    if (Hour > 12)
+                    Calendar c = Calendar.getInstance();
+                    int yy = c.get(Calendar.YEAR);
+                    int mm = c.get(Calendar.MONTH);
+                    int dd = c.get(Calendar.DAY_OF_MONTH);
+                    final String today_date = dd+"/"+(mm+1)+"/"+yy;
+
+                    if(BookingDate.getText().toString().contains(today_date))
                     {
-                        Hour -= 12;
-                        timeSet = "PM";
-                    }
-                    else if (Hour == 0)
-                    {
-                        Hour += 12;
-                        timeSet = "AM";
-                    }
-                    else if (Hour == 12)
-                    {
-                        timeSet = "PM";
+                        if(Hour>calendar.get(Calendar.HOUR_OF_DAY))
+                        {
+                            String M;
+                            if(Minute<10)
+                            {
+                                M = "0"+Minute;
+                            }
+                            else
+                            {
+                                M = String.valueOf(Minute);
+                            }
+                                //Log.i("Status:", "Booking date is today and Hour>=current");
+                                end_time = Hour+":"+ M;
+                                BookingEnd.setText(end_time);
+                                Log.i("Booking End Time :",BookingEnd.getText().toString());
+                        }
+                        else
+                        {
+                            //Log.i("Status:", "Booking date is today but Hour <= current");
+                            Toast.makeText(context,"Invalid time!",Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else {
-                        timeSet = "AM";
+                        String M;
+                        //Log.i("Status:", "Booking date is today and Hour>=current");
+                        if(Minute<10)
+                        {
+                            M = "0"+Minute;
+                        }
+                        else
+                        {
+                            M = String.valueOf(Minute);
+                        }
+                        //Log.i("Status:", "Booking date is not today");
+                        end_time = Hour+":"+M;
+                        BookingEnd.setText(end_time);
+                        Log.i("Booking End Time :",BookingEnd.getText().toString());
                     }
-
-                    String min = "";
-                    if (Minute < 10)
-                        min = "0" + Minute ;
-                    else
-                        min = String.valueOf(Minute);
-
-                    end_time = String.valueOf(Hour)+":"+String.valueOf(min)+" "+timeSet;
-                    BookingEnd.setText(end_time);
-                    Log.i("Booking End Time :",BookingEnd.getText().toString());
                 }
-            },hour,minute,false);
+            },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
             timePicker.show();
         }
         else if(view == NextButton)
@@ -239,8 +279,13 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
                 Toast.makeText(context, "Please enter no of person!", Toast.LENGTH_SHORT).show();
             }
             else {
+                progressBar.setVisibility(View.VISIBLE);
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                   if(compareTime())
                   {
+                      progressBar.setVisibility(View.GONE);
+                      getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                       SharedPreferences.Editor editor = sharedPreferences.edit();
                       editor.putString("Roomno", RoomNo.getText().toString());
                       editor.putString("BookingDate", BookingDate.getText().toString());
@@ -253,6 +298,8 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
                   }
                   else
                       {
+                          progressBar.setVisibility(View.GONE);
+                          getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                           Toast.makeText(context, "End Time Should grater then start time!", Toast.LENGTH_SHORT).show();
                       }
             }

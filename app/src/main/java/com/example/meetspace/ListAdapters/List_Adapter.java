@@ -1,4 +1,4 @@
-package com.example.meetspace;
+package com.example.meetspace.ListAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.meetspace.ModelClass.list_data;
+import com.example.meetspace.R;
 
 import java.util.ArrayList;
 
@@ -78,9 +81,4 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.ViewHolder> 
             itemView.setOnClickListener(itemClickListner);
         }
     }
-    /*public void filterlist(ArrayList<list_data> FilteredList)
-    {
-        listarray = FilteredList;
-        notifyDataSetChanged();
-    }*/
 }

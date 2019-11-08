@@ -1,4 +1,4 @@
-package com.example.meetspace;
+package com.example.meetspace.ModelClass;
 
 
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
+
+import com.example.meetspace.R;
 
 import java.util.ArrayList;
 import java.util.List;

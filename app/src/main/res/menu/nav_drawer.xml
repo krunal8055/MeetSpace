@@ -8,10 +8,6 @@
             android:icon="@drawable/edit_icon"
             android:title="Edit Profile"/>
         <item
-            android:id="@+id/booking_history_nav_draw"
-            android:icon="@drawable/history_icon"
-            android:title="Booking History"/>
-        <item
             android:id="@+id/my_booking_nav_draw"
             android:icon="@drawable/my_booking_icon"
             android:title="My Booking"/>

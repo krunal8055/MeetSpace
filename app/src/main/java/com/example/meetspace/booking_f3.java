@@ -2,6 +2,7 @@ package com.example.meetspace;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +21,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetspace.ListAdapters.Resource_list_adapter;
+import com.example.meetspace.ModelClass.ResourceList;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class booking_f3 extends Fragment implements View.OnClickListener{
+public class booking_f3 extends Fragment implements View.OnClickListener, Resource_list_adapter.ExtraResource {
     Context context;
     NavController navController;
     TextView Search_resource_List;
@@ -37,9 +40,11 @@ public class booking_f3 extends Fragment implements View.OnClickListener{
     ProgressBar progressBar;
     RecyclerView ResourceList;
     Resource_list_adapter resource_list_adapter;
-    ArrayList<ResourceList> Resources,Resources_Filtered_List;
+    ArrayList<com.example.meetspace.ModelClass.ResourceList> Resources,Resources_Filtered_List;
     FirebaseDatabase fb_db;
     DatabaseReference db_ref;
+    SharedPreferences extraresource;
+    SharedPreferences.Editor editor ;
 
 
     public booking_f3() {
@@ -58,12 +63,15 @@ public class booking_f3 extends Fragment implements View.OnClickListener{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getActivity().getApplicationContext();
+        extraresource = getActivity().getSharedPreferences("ExtraResources",context.MODE_PRIVATE);
+        editor = extraresource.edit();
+        editor.clear();
         progressBar = view.findViewById(R.id.progress_bar_resource_list);
         navController = Navigation.findNavController(view);
         ResourceList = view.findViewById(R.id.resource_list_booking3);
         NextButton = view.findViewById(R.id.next_button_booking_3);
         ResourceList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        resource_list_adapter = new Resource_list_adapter(Resources_Filtered_List,context);
+        resource_list_adapter = new Resource_list_adapter(this,Resources_Filtered_List,context);
         ResourceList.setAdapter(resource_list_adapter);
 
 
@@ -84,9 +92,9 @@ public class booking_f3 extends Fragment implements View.OnClickListener{
             }
         });
         //List Adapter Config
-        Resources = new ArrayList<ResourceList>();
-        Resources_Filtered_List = new ArrayList<ResourceList>();
-        resource_list_adapter = new Resource_list_adapter(Resources_Filtered_List,context);
+        Resources = new ArrayList<com.example.meetspace.ModelClass.ResourceList>();
+        Resources_Filtered_List = new ArrayList<com.example.meetspace.ModelClass.ResourceList>();
+        resource_list_adapter = new Resource_list_adapter(this,Resources_Filtered_List,context);
         ResourceList.setAdapter(resource_list_adapter);
         getResourcesFromDB();
         NextButton.setOnClickListener(this);
@@ -95,7 +103,7 @@ public class booking_f3 extends Fragment implements View.OnClickListener{
     //for Filter Data from Recycler view
     private void filter(String FilterString) {
         Resources_Filtered_List.clear();
-        for(ResourceList item :Resources)
+        for(com.example.meetspace.ModelClass.ResourceList item :Resources)
         {
             if(item.getResourceName().toLowerCase().contains(FilterString.toLowerCase()))
             {
@@ -141,7 +149,6 @@ public class booking_f3 extends Fragment implements View.OnClickListener{
                     }
                     resource_list_adapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
@@ -155,8 +162,22 @@ public class booking_f3 extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         if(view == NextButton)
         {
+            editor.commit();
             navController.navigate(R.id.action_booking_f3_to_booking_f4);
         }
     }
 
+    @Override
+    public void AddExtraResource(com.example.meetspace.ModelClass.ResourceList resourceList, int position,Boolean status)
+    {
+            if (status == true) {
+
+                    editor.putString(String.valueOf(position), resourceList.getResourceName());
+                    //Log.i("select",resourceList.getResourceName());
+            } else {
+                    editor.remove(String.valueOf(position));
+                //Log.i("removed",resourceList.getResourceName());
+        }
+
+    }
 }

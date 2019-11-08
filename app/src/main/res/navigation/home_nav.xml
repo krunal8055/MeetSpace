@@ -27,6 +27,12 @@
         <action
             android:id="@+id/action_homepage_to_edit_Profile"
             app:destination="@id/edit_Profile" />
+        <action
+            android:id="@+id/action_homepage_to_noitifcationPage"
+            app:destination="@id/noitifcationPage" />
+        <action
+            android:id="@+id/action_homepage_to_about_us_page"
+            app:destination="@id/about_us_page" />
     </fragment>
     <fragment
         android:id="@+id/myBookingPage"
@@ -65,4 +71,14 @@
         android:name="com.example.meetspace.RoomSchedule_page"
         android:label="Room Schedule"
         tools:layout="@layout/fragment_room_schedule_page" />
+    <fragment
+        android:id="@+id/noitifcationPage"
+        android:name="com.example.meetspace.NoitifcationPage"
+        android:label="Notification"
+        tools:layout="@layout/fragment_noitifcation_page" />
+    <fragment
+        android:id="@+id/about_us_page"
+        android:name="com.example.meetspace.About_us_page"
+        android:label="fragment_about_us_page"
+        tools:layout="@layout/fragment_about_us_page" />
 </navigation>

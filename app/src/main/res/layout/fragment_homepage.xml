@@ -19,7 +19,6 @@
             app:layout_constraintBottom_toTopOf="@+id/recycler_home_page"
             android:padding="25dp"
             android:orientation="horizontal"
-            android:layout_marginTop="?attr/actionBarSize"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true">
 
@@ -69,7 +68,7 @@
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteY="156dp"
             android:theme="@style/Widget.AppCompat.ProgressBar"
-            android:progressBackgroundTint="@color/light_blue"
+            android:progressBackgroundTint="@color/Orange"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linear_for_search_bar"

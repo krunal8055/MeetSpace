@@ -5,18 +5,19 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class Main2Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     public Toolbar toolbar;
@@ -34,11 +37,10 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
     public DrawerLayout HomedrawerLayout;
     public NavigationView HomeNavigationView;
     public NavController navController;
+    String TokenID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_main2);
         firebaseAuth = FirebaseAuth.getInstance();
         setupNavigation();
+        GetToakenID();
 
     }
 
@@ -103,10 +106,35 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             }
         });
     }
+    private void GetToakenID()
+    {
+        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseUser= firebaseAuth.getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("User");
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if(task.isSuccessful())
+                {
+                    String uid = firebaseUser.getUid();
+                    TokenID = task.getResult().getToken();
+                    databaseReference.child(uid).child("Tokenid").setValue(TokenID);
+                }
+                else
+                {
+                 Toast.makeText(Main2Activity.this, (CharSequence) task.getException(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.home_fragment),HomedrawerLayout);
+        return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.home_fragment),HomedrawerLayout) || super.onSupportNavigateUp();
     }
 
     @Override
@@ -120,6 +148,13 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
                 super.onBackPressed();
         }
     }
+    private void DeleteToken()
+    {
+        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseUser= firebaseAuth.getCurrentUser();
+        String uid = firebaseUser.getUid();
+        databaseReference.child(uid).child("Tokenid").removeValue();
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -132,6 +167,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
                 navController.navigate(R.id.action_homepage_self);
                 break;
             case R.id.log_out_nav_draw:
+                DeleteToken();
                 firebaseAuth.signOut();
                 Intent i = new Intent(this, MainActivity.class);
                 startActivity(i);
@@ -142,6 +178,9 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.edit_profile_nav_drawer:
                 navController.navigate(R.id.action_homepage_to_edit_Profile);
+                break;
+            case R.id.notification_nav_draw:
+                navController.navigate(R.id.action_homepage_to_noitifcationPage);
                 break;
         }
         return false;

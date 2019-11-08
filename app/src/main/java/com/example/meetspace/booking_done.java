@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,9 +40,13 @@ public class booking_done extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         Roomno = view.findViewById(R.id.room_no_done);
         BookingRef = view.findViewById(R.id.booking_ref_done);
         BackToHomeButton = view.findViewById(R.id.back_to_home_button);
+        Roomno.setText("");
+        BookingRef.setText("");
         getBookingRef();
         BackToHomeButton.setOnClickListener(this);
 
@@ -60,7 +65,6 @@ public class booking_done extends Fragment implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
-
                     for(DataSnapshot ds:dataSnapshot.child("MyBooking").getChildren())
                     {
                         //Log.i("Booking Ref",ds.getKey());
@@ -71,14 +75,12 @@ public class booking_done extends Fragment implements View.OnClickListener {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
-
     @Override
     public void onClick(View view) {
         if(view == BackToHomeButton)

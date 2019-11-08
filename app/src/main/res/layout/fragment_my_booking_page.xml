@@ -21,7 +21,6 @@
         app:tabTextColor="@color/light_blue"
         app:tabSelectedTextColor="@android:color/white"
         app:tabIndicatorColor="@color/light_blue"
-        android:layout_marginTop="?attr/actionBarSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">

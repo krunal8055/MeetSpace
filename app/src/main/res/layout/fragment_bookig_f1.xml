@@ -230,5 +230,17 @@
                         android:background="@color/Orange"
                         android:layout_margin="20dp"/>
                 </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/progress_bar_booking_details"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:progressBackgroundTint="@color/Orange"
+                    android:theme="@style/Widget.AppCompat.ProgressBar"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

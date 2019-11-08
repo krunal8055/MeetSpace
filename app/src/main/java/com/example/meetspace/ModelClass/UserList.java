@@ -1,4 +1,4 @@
-package com.example.meetspace;
+package com.example.meetspace.ModelClass;
 
 public class UserList {
     String FirstName;

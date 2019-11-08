@@ -1,4 +1,4 @@
-package com.example.meetspace;
+package com.example.meetspace.ModelClass;
 
 public class list_data {
     //private String imageid;

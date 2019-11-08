@@ -47,10 +47,8 @@ public class RoomSchedule_page extends Fragment {
         ft.addToBackStack(null);
         ft.commit();
 
-
-
         //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.event_list,event_view,"Event View").addToBackStack(null).commit();
-        final CollapsibleCalendar collapsibleCalendar = view.findViewById(R.id.calendarView);
+       final CollapsibleCalendar collapsibleCalendar = view.findViewById(R.id.calendarView);
         collapsibleCalendar.setCalendarListener(new CollapsibleCalendar.CalendarListener() {
             @Override
             public void onDaySelect() {

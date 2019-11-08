@@ -7,8 +7,7 @@
     tools:context=".Room_Detail_page">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/room_img_room_detail"
@@ -85,7 +84,7 @@
                         android:paddingStart="10dp"
                         android:textColor="@android:color/white"
                         android:textColorHint="@android:color/white"
-                        android:textSize="16dp" />
+                        android:textSize="15dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -150,6 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info_linear_room_details">
@@ -159,13 +159,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Available Resources :"
-                android:textColor="@color/Orange"
+                android:textColor="@color/light_blue"
                 android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -179,20 +179,24 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Software"
-                        android:textColor="@color/light_blue"
-                        android:textSize="18dp" />
+                        android:textColor="@android:color/white"
+                        android:textSize="16dp"
+                        android:background="@color/Orange"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"/>
 
                     <TextView
                         android:id="@+id/software_room_detail"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:background="#80BEBEBE"
+                        android:background="@color/light_blue"
+                        android:textColor="@android:color/white"
                         android:gravity="center"
-                        android:isScrollContainer="true"
-                        android:text="bwygeufyhiuwef \n wbugyhciuwj \n wgucyhiujwk \n wvytcduijw \n cwfydi"
-                        android:textSize="15dp" />
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -200,25 +204,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Hardware"
-                        android:textColor="@color/light_blue"
-                        android:textSize="15dp" />
+                        android:textColor="@android:color/white"
+                        android:textSize="16dp"
+                        android:background="@color/Orange"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"/>
 
                     <TextView
                         android:id="@+id/hardware_room_detail"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:background="#80BEBEBE"
+                        android:background="@color/light_blue"
+                        android:textColor="@android:color/white"
                         android:gravity="center"
-                        android:textSize="15dp" />
+                        android:minLines="1"
+                        android:scrollbars="vertical"
+                        android:textSize="14dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -228,14 +239,14 @@
             android:id="@+id/buttons_linear_room_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="20dp"
-
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/available_res_linear_room_details">
 
             <Button
                 android:id="@+id/chk_schedule_room_detail"
@@ -249,16 +260,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Book This Room"
-                android:textSize="15dp"
-                />
+                android:textSize="15dp" />
         </LinearLayout>
+
 
         <ProgressBar
             android:id="@+id/progress_bar_room_detail"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progressBackgroundTint="@color/light_blue"
+            android:progressBackgroundTint="@color/Orange"
             android:theme="@style/Widget.AppCompat.ProgressBar"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"

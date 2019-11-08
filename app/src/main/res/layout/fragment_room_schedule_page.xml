@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RoomSchedule_page">
         <LinearLayout
@@ -18,37 +17,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/calendarView"
-                app:primaryColor="@color/Orange"
+                app:primaryColor="@color/light_blue"
                 app:textColor="@android:color/white"
-                app:todayItem_textColor="@android:color/holo_green_light"
+                app:todayItem_textColor="@color/Orange"
                 app:showWeek="true"
                 app:todayItem_background="@drawable/circle_white_stroke_background"
                 app:selectedItem_background="@drawable/circle_white_solid_background"
-                app:selectedItem_textColor="@android:color/black"
+                app:selectedItem_textColor="@android:color/holo_blue_light"
                 app:buttonLeft_drawableTintColor="@android:color/white"
                 app:buttonRight_drawableTintColor="@android:color/white"
                 app:expandIconColor="@android:color/white"
                 app:eventColor="@android:color/holo_green_light">
             </com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar>
         </LinearLayout>
-        <!--<FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/event_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/linear_calender"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-            <TextView
-                android:id="@+id/date_event"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No Date Available"
-                android:layout_gravity="center"
-                android:textSize="25dp"
-                android:textColor="@color/Orange"/>
-
-        </FrameLayout>-->
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/event_list"

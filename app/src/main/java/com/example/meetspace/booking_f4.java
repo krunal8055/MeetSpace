@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +20,14 @@ import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 
 public class booking_f4 extends Fragment implements View.OnClickListener {
@@ -31,9 +38,19 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
+    String UID;
     Context context;
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences,inviteList,extraresource;
     TextView Roomno,Bookingdate,Bookingstart,Bookingend,Bookingreason,NoOfPerson;
+    String roomno,date,start,end,reason,no_of_person;
+    Bundle bundle;
+    Long time = System.currentTimeMillis();
+    String time_string = time.toString();
+    String InviteMessage,CurrentUserName;
+
+    final Booking_info booking_info = new Booking_info();
+    ArrayList<Booking_info> bookinglist = new ArrayList<>();
+    boolean data_exist = false;
 
     public booking_f4() {
     }
@@ -49,6 +66,8 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         navController = Navigation.findNavController(view);
         context = getActivity().getApplicationContext();
 
@@ -61,9 +80,12 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
         NoOfPerson = view.findViewById(R.id.no_person_cf_booking);
         progressBar = view.findViewById(R.id.progress_bar_done);
         BookRoomButton = view.findViewById(R.id.cf_button_booking_4);
-
-
-
+        GetInfoCurrentUser();
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        UID = user.getUid();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        checkExistingBooking();
 
         BookRoomButton.setOnClickListener(this);
         getDataFromSharedPref();
@@ -73,12 +95,14 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
     private void getDataFromSharedPref() {
         progressBar.setVisibility(View.VISIBLE);
         sharedPreferences = getActivity().getSharedPreferences("BookingData",context.MODE_PRIVATE);
-        String roomno = sharedPreferences.getString("Roomno","");
-        String date = sharedPreferences.getString("BookingDate","");
-        String start = sharedPreferences.getString("StartTime","");
-        String end = sharedPreferences.getString("EndTime","");
-        String reason = sharedPreferences.getString("Reason","");
-        String no_of_person = sharedPreferences.getString("NoOfPerson","");
+
+        roomno = sharedPreferences.getString("Roomno","");
+        date = sharedPreferences.getString("BookingDate","");
+        start = sharedPreferences.getString("StartTime","");
+        end = sharedPreferences.getString("EndTime","");
+        reason = sharedPreferences.getString("Reason","");
+        no_of_person = sharedPreferences.getString("NoOfPerson","");
+
         Roomno.setText(roomno);
         Bookingdate.setText(date);
         Bookingstart.setText(start);
@@ -87,31 +111,137 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
         NoOfPerson.setText(no_of_person);
         progressBar.setVisibility(View.GONE);
     }
-
     @Override
     public void onClick(View view) {
         if(view == BookRoomButton)
         {
-            progressBar.setVisibility(View.VISIBLE);
             bookRoom();
-            progressBar.setVisibility(View.GONE);
-            navController.navigate(R.id.action_booking_f4_to_booking_done);
+        }
+    }
+    public void checkExistingBooking()
+    {
+        databaseReference = firebaseDatabase.getReference().child("User");
+        databaseReference.child(UID).child("MyBooking").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+
+                    for(DataSnapshot ds : dataSnapshot.getChildren())
+                    {
+                        bookinglist.add(new Booking_info(ds.child("Bookingdate").getValue().toString(),
+                                ds.child("Start_time").getValue().toString(),
+                                ds.child("End_time").getValue().toString(),
+                                ds.child("Roomno").getValue().toString(),
+                                ds.child("Booking_reason").getValue().toString(),
+                                ds.child("No_of_person").getValue().toString()));
+
+                        //Log.i("Booking_List_Room",bookinglist.get(0).getRoomNO());
+                        // toget value from List converting value from object to jsonarray
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(context,"Something is wrong with DB. Try Again!",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+//Booking Process
+    private void bookRoom()
+    {
+        progressBar.setVisibility(View.VISIBLE);
+            databaseReference = firebaseDatabase.getReference().child("User").child(UID);
+            //Check for Fields are filled or empty on Bookingf1
+            if(roomno != "" && date != "" && start != "" && end != "" && reason != "" && no_of_person != "" ) {
+                //checkExistingBooking();
+                progressBar.setVisibility(View.GONE);
+                //checking for duplicate booking
+                for (int i=0;i<bookinglist.size();i++){
+                    if(bookinglist.get(i).getRoomNO().equals(roomno)&&
+                            bookinglist.get(i).getStartTime().equals(start)&&
+                            bookinglist.get(i).getEndTime().equals(end)&&
+                            bookinglist.get(i).getBookingDate().equals(date)){
+                        data_exist = true;
+                        break;
+                    }
+                }
+                if(!data_exist){
+
+                    //Toast.makeText(context, "Its Unique.", Toast.LENGTH_SHORT).show();
+                    databaseReference.child("MyBooking").child(time_string).child("Roomno").setValue(Roomno.getText().toString());
+                    databaseReference.child("MyBooking").child(time_string).child("Bookingdate").setValue(Bookingdate.getText().toString());
+                    databaseReference.child("MyBooking").child(time_string).child("Start_time").setValue(Bookingstart.getText().toString());
+                    databaseReference.child("MyBooking").child(time_string).child("End_time").setValue(Bookingend.getText().toString());
+                    databaseReference.child("MyBooking").child(time_string).child("Booking_reason").setValue(Bookingreason.getText().toString());
+                    databaseReference.child("MyBooking").child(time_string).child("No_of_person").setValue(NoOfPerson.getText().toString());
+                    InviteListData();
+                    ExtraResourceData();
+                    progressBar.setVisibility(View.GONE);
+                    navController.navigate(R.id.action_booking_f4_to_booking_done);
+                }
+                else {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(context, "You Already Booked This Room!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            else
+            {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(context,"Null Values Found.Can not Book Room!",Toast.LENGTH_SHORT).show();
+            }
+    }
+
+    public void InviteListData()
+    {
+        databaseReference = firebaseDatabase.getReference().child("User").child(UID).child("MyBooking").child(time_string);
+        inviteList = getActivity().getSharedPreferences("InviteList",context.MODE_PRIVATE);
+        Map<String,?> allInvitedUser = inviteList.getAll();
+        for(Map.Entry<String,?> entry:allInvitedUser.entrySet())
+        {
+            databaseReference.child("MyInviteList").child(entry.getKey()).child("Name").setValue(entry.getValue().toString());
+            InviteMessage = CurrentUserName+" Invited you for "+Bookingreason.getText().toString() +" in Room no "+Roomno.getText().toString()+" On Date "+Bookingdate.getText().toString()+" From "+Bookingstart.getText().toString()+" To "+Bookingend.getText().toString()+".";
+            databaseReference.child("MyInviteList").child(entry.getKey()).child("Message").setValue(InviteMessage);
+           /* Log.i("Key",entry.getKey());
+            Log.i("Value",entry.getValue().toString());*/
         }
     }
 
-    private void bookRoom()
+    public void ExtraResourceData()
     {
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        String UID;
-        UID = user.getUid();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("User").child(UID);
-        databaseReference.child("MyBooking").child(UID+Roomno.getText().toString()).child("Roomno").setValue(Roomno.getText().toString());
-        databaseReference.child("MyBooking").child(UID+Roomno.getText().toString()).child("Bookingdate").setValue(Bookingdate.getText().toString());
-        databaseReference.child("MyBooking").child(UID+Roomno.getText().toString()).child("Start_time").setValue(Bookingstart.getText().toString());
-        databaseReference.child("MyBooking").child(UID+Roomno.getText().toString()).child("End_time").setValue(Bookingend.getText().toString());
-        databaseReference.child("MyBooking").child(UID+Roomno.getText().toString()).child("Booking_reason").setValue(Bookingreason.getText().toString());
-        databaseReference.child("MyBooking").child(UID+Roomno.getText().toString()).child("No_of_person").setValue(NoOfPerson.getText().toString());
+        databaseReference = firebaseDatabase.getReference().child("User").child(UID).child("MyBooking").child(time_string);
+        extraresource = getActivity().getSharedPreferences("ExtraResources",context.MODE_PRIVATE);
+        Map<String,?> allExtraResources = extraresource.getAll();
+        for(Map.Entry<String,?> entry:allExtraResources.entrySet())
+        {
+            databaseReference.child("ExtraResources").child(entry.getKey()).setValue(entry.getValue().toString());
+            /*Log.i("Key",entry.getKey());
+            Log.i("Value",entry.getValue().toString());*/
+        }
     }
+
+    public void GetInfoCurrentUser()
+    {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("User");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+
+                    CurrentUserName= dataSnapshot.child(UID).child("Firstname").getValue().toString()+" "+dataSnapshot.child(UID).child("Lastname").getValue().toString();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }
