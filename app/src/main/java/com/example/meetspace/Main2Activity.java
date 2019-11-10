@@ -45,15 +45,18 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main2);
         firebaseAuth = FirebaseAuth.getInstance();
         setupNavigation();
         GetToakenID();
-
     }
+
 
     private void setupNavigation() {
         //Toolbar SetUp
+        setdata_in_drawer_layout();
         toolbar = findViewById(R.id.main2_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Meetspace");
@@ -67,14 +70,10 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         Emp_Id = HomeNavigationView.getHeaderView(0).findViewById(R.id.user_emp_id_nav_drw);
         Emp_Name = HomeNavigationView.getHeaderView(0).findViewById(R.id.user_name_nav_drw);
         Designation = HomeNavigationView.getHeaderView(0).findViewById(R.id.user_designation_nav_drw);
-        setdata_in_drawer_layout();
-
         navController = Navigation.findNavController(this, R.id.home_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,HomedrawerLayout);
         NavigationUI.setupWithNavController(HomeNavigationView,navController);
-
         HomeNavigationView.setNavigationItemSelectedListener(this);
-        //EditProfile_btn.setOnClickListener(this);
 
     }
 
@@ -134,6 +133,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean onSupportNavigateUp() {
+        setdata_in_drawer_layout();
         return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.home_fragment),HomedrawerLayout) || super.onSupportNavigateUp();
     }
 
@@ -158,6 +158,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         item.setCheckable(true);
         HomedrawerLayout.closeDrawers();
         int id = item.getItemId();

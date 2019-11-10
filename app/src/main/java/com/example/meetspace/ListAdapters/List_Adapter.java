@@ -35,7 +35,6 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull List_Adapter.ViewHolder holder, int position) {
-        //Glide.with(context).asBitmap().load(listarray.get(position).getImageid()).into(holder.room_image_list);
         holder.room_no_txt.setText(listarray.get(position).getRoom_no());
         if(position % 5 == 0)
         {

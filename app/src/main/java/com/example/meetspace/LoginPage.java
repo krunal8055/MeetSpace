@@ -118,16 +118,16 @@ public class LoginPage extends Fragment implements View.OnClickListener {
     {
         progressBar.setVisibility(View.VISIBLE);
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//Block UI
         firebaseAuth.signInWithEmailAndPassword(Email_ID,PASSWORD).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressBar.setVisibility(View.GONE);
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
                 if(task.isSuccessful())
                 {
                     updateUI(user);
-                    Intent i = new Intent(context, Main2Activity.class);
+                    Intent i = new Intent(context,Main2Activity.class);
                     startActivity(i);
                     getActivity().finish();
                     //firebaseUser = firebaseAuth.getCurrentUser();
@@ -150,7 +150,7 @@ public class LoginPage extends Fragment implements View.OnClickListener {
         progressBar.setVisibility(View.GONE);
         if(user != null)
         {
-            Intent i = new Intent(context, Main2Activity.class);
+            Intent i = new Intent(context,Main2Activity.class);
             startActivity(i);
             getActivity().finish();
         }

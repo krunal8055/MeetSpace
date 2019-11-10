@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="18dp">
+        android:scrollbars="horizontal">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="18dp">
         <TextView
             android:id="@+id/my_booking_item_room_no"
             android:layout_width="match_parent"
@@ -56,21 +59,36 @@
         </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="60dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:layout_gravity="center">
-        <ImageView
-            android:id="@+id/my_booking_item_edit_icon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/edit_icon"
-            android:clickable="true"/>
-    </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="3px"
-        android:background="@color/Orange"/>
+        android:orientation="horizontal"
+        android:background="@color/Orange" />
+    <LinearLayout
+        android:id="@+id/edit_booking_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:background="@color/light_silver"
+        android:padding="20px"
+        android:visibility="gone"
+        android:animateLayoutChanges="true">
+        <ImageView
+            android:id="@+id/my_booking_item_edit_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_icon"
+            android:clickable="true"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/my_booking_item_delete_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/clear"
+            android:clickable="true"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>

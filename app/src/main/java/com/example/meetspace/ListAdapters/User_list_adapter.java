@@ -23,7 +23,7 @@ public class User_list_adapter extends RecyclerView.Adapter<User_list_adapter.Vi
     public InviteUser inviteUser;
 
 
-    public User_list_adapter(InviteUser inviteUser,ArrayList<UserList> userListArrayList, Context context) {
+    public User_list_adapter(InviteUser inviteUser, ArrayList<UserList> userListArrayList, Context context) {
         this.inviteUser = inviteUser;
         this.userListArrayList = userListArrayList;
         this.context = context;

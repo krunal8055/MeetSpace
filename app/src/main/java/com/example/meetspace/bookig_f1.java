@@ -4,6 +4,7 @@ package com.example.meetspace;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +40,8 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
     EditText BookingReason,No_of_Person;
     Button NextButton;
     SharedPreferences sharedPreferences;
-    int position,Roomno;
+
+    int Roomno;
 
     String start_time,end_time;
     SimpleDateFormat sdf;
@@ -71,12 +73,33 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
         BookingDate= view.findViewById(R.id.date_room_booking);
         BookingStart = view.findViewById(R.id.start_time_booking);
         BookingEnd = view.findViewById(R.id.end_time_booking);
-        dateAndTimePickerInit();
-        SetImageBooking_And_Room_No();
         BookingReason = view.findViewById(R.id.reason_booking1);
         No_of_Person = view.findViewById(R.id.no_person_booking1);
         NextButton = view.findViewById(R.id.next_button_booking_1);
+
+        Intent i = getActivity().getIntent();
+        Log.i("flag",String.valueOf(i.getBooleanExtra("flag",false)));
+        if(i.getBooleanExtra("flag",false))
+        {
+            int position = i.getIntExtra("position",0);
+            SetImageBooking_And_Room_No(position);
+            String bookingid = i.getStringExtra("BookingID");
+            RoomNo.setText(i.getStringExtra("Roomno"));
+            BookingDate.setText(i.getStringExtra("Bookingdate"));
+            BookingStart.setText(i.getStringExtra("Start"));
+            BookingEnd.setText(i.getStringExtra("End"));
+            BookingReason.setText(i.getStringExtra("Reason"));
+            No_of_Person.setText(i.getStringExtra("NoPeople"));
+            dateAndTimePickerInit();
+        }
+        else
+        {
+            int position = getActivity().getIntent().getIntExtra("Position",0);
+            dateAndTimePickerInit();
+            SetImageBooking_And_Room_No(position);
+        }
         NextButton.setOnClickListener(this);
+
 
     }
     private void dateAndTimePickerInit()
@@ -85,9 +108,9 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
         BookingStart.setOnClickListener(this);
         BookingEnd.setOnClickListener(this);
     }
-    private  void SetImageBooking_And_Room_No()
+    private  void SetImageBooking_And_Room_No(int position)
     {
-        position = getActivity().getIntent().getIntExtra("Position",0);
+
         Roomno = getActivity().getIntent().getIntExtra("Roomno",0);
         RoomNo.setText(String.valueOf(Roomno));
         if(position % 5 == 0)

@@ -85,7 +85,7 @@ public class booking_done extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if(view == BackToHomeButton)
         {
-            Intent i = new Intent(getContext(), Main2Activity.class);
+            Intent i = new Intent(getContext(),Main2Activity.class);
             startActivity(i);
             getActivity().finish();
         }

@@ -92,8 +92,8 @@ public class booking_f3 extends Fragment implements View.OnClickListener, Resour
             }
         });
         //List Adapter Config
-        Resources = new ArrayList<com.example.meetspace.ModelClass.ResourceList>();
-        Resources_Filtered_List = new ArrayList<com.example.meetspace.ModelClass.ResourceList>();
+        Resources = new ArrayList<ResourceList>();
+        Resources_Filtered_List = new ArrayList<ResourceList>();
         resource_list_adapter = new Resource_list_adapter(this,Resources_Filtered_List,context);
         ResourceList.setAdapter(resource_list_adapter);
         getResourcesFromDB();
@@ -103,7 +103,7 @@ public class booking_f3 extends Fragment implements View.OnClickListener, Resour
     //for Filter Data from Recycler view
     private void filter(String FilterString) {
         Resources_Filtered_List.clear();
-        for(com.example.meetspace.ModelClass.ResourceList item :Resources)
+        for(ResourceList item :Resources)
         {
             if(item.getResourceName().toLowerCase().contains(FilterString.toLowerCase()))
             {
@@ -125,23 +125,13 @@ public class booking_f3 extends Fragment implements View.OnClickListener, Resour
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
-                {
-                    int index = 01;
+                {/*
+                    int index = 01;*/
 
                     progressBar.setVisibility(View.GONE);
                     for (DataSnapshot ds : dataSnapshot.getChildren())
                     {
-                        String str;
-                        if(index<10)
-                        {
-                            str = "0"+index;
-                        }
-                        else {
-                            str = String.valueOf(index);
-                        }
-
-                        if(index<32) {
-                            //Log.i("Resources",ds.child("Resourcename").getValue().toString());
+                        if(ds.exists()) {
                             String res_name = ds.child("Resourcename").getValue().toString();
                             Resources.add(new ResourceList(res_name));
                             Resources_Filtered_List.add(new ResourceList(res_name));

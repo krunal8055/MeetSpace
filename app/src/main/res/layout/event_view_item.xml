@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/start_linear_event_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Time"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/light_blue"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/start_event_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="start Time"
+            android:textSize="16sp"
+            android:textColor="@color/Orange"
+            android:textColorHint="@color/Orange"
+            android:gravity="center"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/end_linear_event_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="End Time"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/light_blue"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/end_event_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="end Time"
+            android:textSize="16sp"
+            android:textColor="@color/Orange"
+            android:textColorHint="@color/Orange"
+            android:gravity="center"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

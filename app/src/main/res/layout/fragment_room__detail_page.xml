@@ -40,51 +40,54 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Catagory :"
+                        android:text="Catagory"
                         android:textColor="@android:color/white"
-                        android:textSize="18dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/catagory_room_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="catagory"
-                        android:paddingStart="10dp"
-                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:textColor="@color/Orange"
                         android:textColorHint="@android:color/white"
-                        android:textSize="15dp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Floor no :"
+                        android:text="Floor no"
                         android:textColor="@android:color/white"
-                        android:textSize="18dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/floor_room_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="floor no"
-                        android:paddingStart="10dp"
-                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:textColor="@color/Orange"
                         android:textColorHint="@android:color/white"
-                        android:textSize="15dp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -96,16 +99,18 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status :"
+                        android:text="Status"
                         android:textColor="@android:color/white"
-                        android:textSize="18dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/room_status_room_detail"
@@ -113,23 +118,26 @@
                         android:layout_height="wrap_content"
                         android:hint="status"
                         android:paddingStart="10dp"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/Orange"
+                        android:gravity="center"
                         android:textColorHint="@android:color/white"
-                        android:textSize="16dp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="15dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Capacity :"
+                        android:text="Capacity"
                         android:textColor="@android:color/white"
-                        android:textSize="18dp" />
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/capacity_room_detail"
@@ -137,9 +145,10 @@
                         android:layout_height="wrap_content"
                         android:hint="capacity"
                         android:paddingStart="10dp"
-                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:textColor="@color/Orange"
                         android:textColorHint="@android:color/white"
-                        android:textSize="16dp" />
+                        android:textSize="14dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -165,7 +174,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"

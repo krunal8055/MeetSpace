@@ -2,19 +2,14 @@ package com.example.meetspace.MyBookingTab;
 
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.meetspace.R;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Cancelled_Booking_Tab extends Fragment {
 
 

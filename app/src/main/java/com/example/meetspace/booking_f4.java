@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -94,6 +95,8 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
 
     private void getDataFromSharedPref() {
         progressBar.setVisibility(View.VISIBLE);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//Block UI
         sharedPreferences = getActivity().getSharedPreferences("BookingData",context.MODE_PRIVATE);
 
         roomno = sharedPreferences.getString("Roomno","");
@@ -110,11 +113,13 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
         Bookingreason.setText(reason);
         NoOfPerson.setText(no_of_person);
         progressBar.setVisibility(View.GONE);
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
     }
     @Override
     public void onClick(View view) {
         if(view == BookRoomButton)
         {
+
             bookRoom();
         }
     }
@@ -152,11 +157,15 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
     private void bookRoom()
     {
         progressBar.setVisibility(View.VISIBLE);
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//Block UI
+
             databaseReference = firebaseDatabase.getReference().child("User").child(UID);
             //Check for Fields are filled or empty on Bookingf1
             if(roomno != "" && date != "" && start != "" && end != "" && reason != "" && no_of_person != "" ) {
                 //checkExistingBooking();
                 progressBar.setVisibility(View.GONE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
                 //checking for duplicate booking
                 for (int i=0;i<bookinglist.size();i++){
                     if(bookinglist.get(i).getRoomNO().equals(roomno)&&
@@ -179,10 +188,12 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
                     InviteListData();
                     ExtraResourceData();
                     progressBar.setVisibility(View.GONE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
                     navController.navigate(R.id.action_booking_f4_to_booking_done);
                 }
                 else {
                     progressBar.setVisibility(View.GONE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
                     Toast.makeText(context, "You Already Booked This Room!", Toast.LENGTH_SHORT).show();
                 }
 
@@ -190,6 +201,7 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
             else
             {
                 progressBar.setVisibility(View.GONE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
                 Toast.makeText(context,"Null Values Found.Can not Book Room!",Toast.LENGTH_SHORT).show();
             }
     }
