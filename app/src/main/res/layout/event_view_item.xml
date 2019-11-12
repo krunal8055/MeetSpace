@@ -4,15 +4,25 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    <LinearLayout
         android:id="@+id/start_linear_event_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Start Time"
-            android:gravity="center"
+            android:gravity="center_horizontal|end"
             android:textSize="16sp"
             android:textColor="@color/light_blue"
             android:layout_weight="1"/>
@@ -22,21 +32,23 @@
             android:layout_height="wrap_content"
             android:hint="start Time"
             android:textSize="16sp"
+            android:paddingStart="20dp"
             android:textColor="@color/Orange"
             android:textColorHint="@color/Orange"
-            android:gravity="center"
+            android:gravity="center_horizontal|start"
             android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/end_linear_event_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="End Time"
-            android:gravity="center"
+            android:gravity="center_horizontal|end"
             android:textSize="16sp"
             android:textColor="@color/light_blue"
             android:layout_weight="1"/>
@@ -45,10 +57,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="end Time"
+            android:paddingStart="20dp"
             android:textSize="16sp"
             android:textColor="@color/Orange"
             android:textColorHint="@color/Orange"
-            android:gravity="center"
+            android:gravity="center_horizontal|start"
             android:layout_weight="1"/>
     </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="8px"
+        android:background="@color/light_blue"/>
 </LinearLayout>

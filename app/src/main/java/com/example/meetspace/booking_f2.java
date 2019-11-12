@@ -76,6 +76,7 @@ public class booking_f2 extends Fragment implements View.OnClickListener, User_l
         //Recycler View
         PeopleInviteList = view.findViewById(R.id.invite_list_booking2);
         NextButton = view.findViewById(R.id.next_button_booking_2);
+
         PeopleInviteList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         user_list_adapter = new User_list_adapter(this,Users_Filtered_list,context);
         PeopleInviteList.setAdapter(user_list_adapter);

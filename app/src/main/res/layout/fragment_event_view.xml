@@ -13,56 +13,37 @@
         android:text="No Event Found!"
         android:textSize="30dp"
         android:textColor="@color/Orange"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:visibility="visible"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/ribbon_icon"
-            android:layout_width="200dp"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:src="@drawable/icon_ribbon"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone">
-        </ImageView>
         <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="20sp"
-            app:layout_constraintStart_toStartOf="@+id/ribbon_icon"
-            app:layout_constraintTop_toTopOf="@id/ribbon_icon"
-            app:layout_constraintBottom_toBottomOf="@id/ribbon_icon"
-            app:layout_constraintEnd_toEndOf="@id/ribbon_icon">
-           <TextView
-               android:id="@+id/date_event"
-               android:layout_width="200dp"
-               android:layout_height="80dp"
-               android:hint="Date"
-               android:textColorHint="@android:color/white"
-               android:textColor="@android:color/white"
-               android:textSize="20sp"
-               android:gravity="center"
-               android:visibility="gone"/>
-            <TextView
-                android:id="@+id/event_ep"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:hint="events"
-                android:textColorHint="@color/Orange"
-                android:textColor="@color/Orange"
-                android:visibility="gone"/>
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/event_list_recycler"
+            android:id="@+id/llll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/event_list_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible" />
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/event_list_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyle"
+            android:layout_marginTop="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/llll"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

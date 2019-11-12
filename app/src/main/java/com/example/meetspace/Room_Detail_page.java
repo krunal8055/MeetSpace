@@ -194,9 +194,11 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         if(view == Check_Schedule)
         {
+            Bundle room_no_bundle = new Bundle();
+            room_no_bundle.putString("Roomno", SelectedRoom);
             progressBar.setVisibility(View.GONE);
             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-            navController.navigate(R.id.action_room_Detail_page_to_roomSchedule_page);
+            navController.navigate(R.id.action_room_Detail_page_to_roomSchedule_page,room_no_bundle);
         }
         else if(view == BookRoom)
         {

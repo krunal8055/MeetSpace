@@ -39,7 +39,6 @@ public class Upcoming_Booking_Tab extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     Boolean aBoolean = true;
-    boolean flag = true;
     public Upcoming_Booking_Tab() {
         // Required empty public constructor
     }
