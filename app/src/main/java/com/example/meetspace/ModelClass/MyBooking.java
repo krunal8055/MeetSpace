@@ -14,6 +14,11 @@ public class MyBooking {
         BookingID = bookingID;
     }
 
+    public MyBooking()
+    {
+
+    }
+
     public MyBooking(String start, String end) {
         Start = start;
         End = end;

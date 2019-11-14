@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Booking_Activity" android:windowSoftInputMode="adjustPan"></activity>
+
+        <activity
+            android:name=".Booking_Activity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Main2Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -19,6 +22,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+        <activity android:name=".NotificationPage">
+            <!--<intent-filter>
+                <action android:name="com.example.meetspace.PushNotification.REDIRECTION"></action>
+                <category android:name="android.intent.catagory.DEFAULT"></category>
+            </intent-filter>-->
         </activity>
     </application>
 

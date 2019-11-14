@@ -9,65 +9,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginStart="20dp"
         android:padding="10dp">
         <TextView
             android:id="@+id/notification_title"
             android:layout_width="match_parent"
             android:hint="Title"
-            android:textSize="25dp"
+            android:textSize="18dp"
             android:textColorHint="@color/light_blue"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/notification_message"
             android:layout_width="match_parent"
             android:hint="Message"
-            android:textSize="20dp"
-            android:padding="20dp"
+            android:textSize="16dp"
+            android:padding="10dp"
             android:textColorHint="@android:color/black"
             android:layout_height="wrap_content"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/notification_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Date"
-                android:textColorHint="@color/Orange"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:layout_weight="1"/>
-            <TextView
-                android:id="@+id/notification_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="start time"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:textColorHint="@color/Orange"
-                android:layout_weight="1"/>
-            <TextView
-                android:id="@+id/notification_end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="End time"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:textColorHint="@color/Orange"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/linear_button_notification"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:background="@color/cardview_shadow_end_color"
         android:paddingStart="20dp"
-        android:paddingEnd="20dp">
+        android:paddingEnd="20dp"
+        android:visibility="gone"
+        android:animateLayoutChanges="true">
         <Button
             android:id="@+id/accept_button_notification"
             android:layout_width="match_parent"
@@ -86,5 +53,9 @@
             android:textSize="15sp"
             android:backgroundTint="@android:color/holo_red_dark"/>
     </LinearLayout>
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5px"
+        android:background="@color/Orange"/>
 </LinearLayout>

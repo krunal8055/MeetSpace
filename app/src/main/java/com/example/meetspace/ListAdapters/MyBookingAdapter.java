@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,9 +49,10 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
         holder.date.setText(myBookingArrayList.get(position).getDate());
         holder.start.setText(myBookingArrayList.get(position).getStart());
         holder.end.setText(myBookingArrayList.get(position).getEnd());
-
         if(aBoolean !=true) {
             holder.edit.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.GONE);
+            holder.l1.setVisibility(View.GONE);
         }
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,16 +77,25 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
                 firebaseDatabase.getReference().child("User").child(uid).child("MyBooking").child(myBookingArrayList.get(position).getBookingID()).removeValue();
                 Toast.makeText(context,"Booking Deleted Successfully!",Toast.LENGTH_SHORT).show();
                 myBookingArrayList.remove(position);
+                notifyDataSetChanged();
             }
         });
         holder.bind(myBooking);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean expanded = myBooking.isExpanded();
-                myBooking.setExpanded(!expanded);
-                notifyItemChanged(position);
-            }
+
+                /*if (aBoolean == false)
+                {
+                    myBooking.setExpanded(aBoolean);
+                }
+                else
+                {*/
+                    boolean expanded = myBooking.isExpanded();
+                    myBooking.setExpanded(!expanded);
+                    notifyDataSetChanged();
+                }
+           // }
         });
 
     }
@@ -100,7 +110,7 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView roomno,date,start,end;
-        ImageView edit,delete;
+        Button edit,delete;
         LinearLayout l1;
 
         public ViewHolder(@NonNull View itemView) {
@@ -109,8 +119,8 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
             date= itemView.findViewById(R.id.my_booking_item_booking_date);
             start = itemView.findViewById(R.id.my_booking_item_start_time);
             end = itemView.findViewById(R.id.my_booking_item_end_time);
-            edit = itemView.findViewById(R.id.my_booking_item_edit_icon);
-            delete=itemView.findViewById(R.id.my_booking_item_delete_icon);
+            edit = itemView.findViewById(R.id.my_booking_item_edit_button);
+            delete=itemView.findViewById(R.id.my_booking_item_delete_button);
             l1 = itemView.findViewById(R.id.edit_booking_linear);
             itemView.setTag(this);
             itemView.setOnClickListener(itemClickListner);
@@ -120,6 +130,10 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
             boolean expanded = myBooking.isExpanded();
 
             l1.setVisibility(expanded ? View.VISIBLE : View.GONE);
+            if(aBoolean == false)
+            {
+                l1.setVisibility(View.GONE);
+            }
         }
     }
 

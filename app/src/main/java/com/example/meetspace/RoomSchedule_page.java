@@ -100,9 +100,6 @@ public class RoomSchedule_page extends Fragment {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-
-
             }
 
             @Override

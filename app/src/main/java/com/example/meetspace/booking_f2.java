@@ -48,8 +48,8 @@ public class booking_f2 extends Fragment implements View.OnClickListener, User_l
     DatabaseReference db_ref;
     ProgressBar progressBar;
     NavController navController;
-    SharedPreferences InviteList;
-    SharedPreferences.Editor editor;
+    SharedPreferences InviteList_Token,InviteList_RUID;
+    SharedPreferences.Editor editor_token,editor_RUID;
 
 
     public booking_f2() {
@@ -67,9 +67,12 @@ public class booking_f2 extends Fragment implements View.OnClickListener, User_l
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getActivity().getApplicationContext();
-        InviteList = getActivity().getSharedPreferences("InviteList",context.MODE_PRIVATE);
-        editor = InviteList.edit();
-        editor.clear();
+        InviteList_Token = getActivity().getSharedPreferences("InviteList_Token",context.MODE_PRIVATE);
+        InviteList_RUID = getActivity().getSharedPreferences("InviteList_RUID",context.MODE_PRIVATE);
+        editor_token = InviteList_Token.edit();
+        editor_RUID= InviteList_RUID.edit();
+        editor_token.clear();
+        editor_RUID.clear();
         //Initialization
         progressBar = view.findViewById(R.id.progress_bar_invite_list);
         navController = Navigation.findNavController(view);
@@ -129,11 +132,13 @@ public class booking_f2 extends Fragment implements View.OnClickListener, User_l
                     for(DataSnapshot ds : dataSnapshot.getChildren())
                     {
                         progressBar.setVisibility(View.GONE);
-                        if(!ds.getKey().contains(UID)) {
+                        if(!ds.getKey().contains(UID) && ds.hasChild("Tokenid")) {
+                            String tokenid = ds.child("Tokenid").getValue().toString();
+                            String reciever_uid = ds.child("UID").getValue().toString();
                             String fName = ds.child("Firstname").getValue().toString();
                             String lName = ds.child("Lastname").getValue().toString();
-                            Users.add(new UserList(fName, lName));
-                            Users_Filtered_list.add(new UserList(fName, lName));
+                            Users.add(new UserList(reciever_uid,tokenid,fName, lName));
+                            Users_Filtered_list.add(new UserList(reciever_uid,tokenid,fName, lName));
                         }
                     }
                     user_list_adapter.notifyDataSetChanged();
@@ -177,20 +182,21 @@ public class booking_f2 extends Fragment implements View.OnClickListener, User_l
     public void onClick(View view) {
         if(view == NextButton)
         {
-            editor.commit();
+            editor_token.commit();
+            editor_RUID.commit();
             navController.navigate(R.id.action_booking_f2_to_booking_f3);
         }
     }
 
     @Override
-    public void AddUser(UserList userList, boolean status, int position) {
+    public void AddUser(UserList userList, boolean status,int position) {
             if (status == true) {
-                //Toast.makeText(context, userList.getFirstName() + "" + userList.getLastName() + " Invited!", Toast.LENGTH_SHORT).show();
-                //InviteBundle.putString(String.valueOf(position),userList.getFirstName()+ "" + userList.getLastName());
-                editor.putString(String.valueOf(position), userList.getFirstName() + "" + userList.getLastName());
-
+                //editor.putString(String.valueOf(position), userList.getFirstName() + "" + userList.getLastName());
+                editor_token.putString(String.valueOf(position), userList.getTokenID());
+                editor_RUID.putString(String.valueOf(position),userList.getReciever_UID());
             } else {
-                editor.remove(String.valueOf(position));
+                editor_token.remove(String.valueOf(position));
+                editor_RUID.remove(String.valueOf(position));
                 //InviteBundle.remove(String.valueOf(position));
                 //Toast.makeText(context, userList.getFirstName() + "" + userList.getLastName() + " removed!", Toast.LENGTH_SHORT).show();
         }

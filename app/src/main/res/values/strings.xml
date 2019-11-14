@@ -15,5 +15,6 @@
     <string name="spinner_item_2">Meeting Room</string>
     <string name="spinner_item_3">Labs</string>
     <string name="spinner_item_4">Others</string>
+    <string name="default_notification_channel_id">MeetSpace_CH_1</string>
 </resources>
 

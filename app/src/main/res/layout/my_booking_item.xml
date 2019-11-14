@@ -61,34 +61,37 @@
     </LinearLayout>
     </LinearLayout>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="3px"
-        android:orientation="horizontal"
-        android:background="@color/Orange" />
-    <LinearLayout
         android:id="@+id/edit_booking_linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:background="@color/light_silver"
+        android:background="@color/cardview_shadow_end_color"
         android:padding="20px"
-        android:visibility="gone"
+        android:visibility="visible"
         android:animateLayoutChanges="true">
-        <ImageView
-            android:id="@+id/my_booking_item_edit_icon"
+        <Button
+            android:id="@+id/my_booking_item_edit_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/edit_icon"
-            android:clickable="true"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/my_booking_item_delete_icon"
+            android:text="Edit"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:backgroundTint="@color/Orange"
+            android:layout_marginEnd="10dp"/>
+        <Button
+            android:id="@+id/my_booking_item_delete_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/clear"
-            android:clickable="true"
-            android:layout_weight="1"/>
+            android:text="Delete"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:backgroundTint="@android:color/holo_red_dark"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:orientation="horizontal"
+        android:background="@color/Orange" />
 </LinearLayout>

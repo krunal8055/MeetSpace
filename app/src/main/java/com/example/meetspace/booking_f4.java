@@ -41,7 +41,7 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
     FirebaseUser user;
     String UID;
     Context context;
-    SharedPreferences sharedPreferences,inviteList,extraresource;
+    SharedPreferences sharedPreferences,inviteList_token,inviteList_ruid,extraresource;
     TextView Roomno,Bookingdate,Bookingstart,Bookingend,Bookingreason,NoOfPerson;
     String roomno,date,start,end,reason,no_of_person;
     Bundle bundle;
@@ -208,16 +208,26 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
 
     public void InviteListData()
     {
+
         databaseReference = firebaseDatabase.getReference().child("User").child(UID).child("MyBooking").child(time_string);
-        inviteList = getActivity().getSharedPreferences("InviteList",context.MODE_PRIVATE);
-        Map<String,?> allInvitedUser = inviteList.getAll();
-        for(Map.Entry<String,?> entry:allInvitedUser.entrySet())
+        inviteList_token = getActivity().getSharedPreferences("InviteList_Token",context.MODE_PRIVATE);
+        Map<String,?> allInvitedUser_token = inviteList_token.getAll();
+        for(Map.Entry<String,?> entry_token:allInvitedUser_token.entrySet())
         {
-            databaseReference.child("MyInviteList").child(entry.getKey()).child("Name").setValue(entry.getValue().toString());
+            //Log.i("key",entry_token.getKey());
+            //Log.i("value", String.valueOf(entry_token.getValue()));
+
+            databaseReference.child("MyInviteList").child(entry_token.getKey()).child("Invited_User_token_id").setValue(entry_token.getValue().toString());
             InviteMessage = CurrentUserName+" Invited you for "+Bookingreason.getText().toString() +" in Room no "+Roomno.getText().toString()+" On Date "+Bookingdate.getText().toString()+" From "+Bookingstart.getText().toString()+" To "+Bookingend.getText().toString()+".";
-            databaseReference.child("MyInviteList").child(entry.getKey()).child("Message").setValue(InviteMessage);
-           /* Log.i("Key",entry.getKey());
-            Log.i("Value",entry.getValue().toString());*/
+            databaseReference.child("MyInviteList").child(entry_token.getKey()).child("Message").setValue(InviteMessage);
+            databaseReference.child("MyInviteList").child(entry_token.getKey()).child("Invitation_Status").setValue("Pending");
+
+        }
+        inviteList_ruid = getActivity().getSharedPreferences("InviteList_RUID",context.MODE_PRIVATE);
+        Map<String,?> allInvitedUser_UID = inviteList_ruid.getAll();
+        for(Map.Entry<String,?> entry_uid:allInvitedUser_UID.entrySet())
+        {
+            databaseReference.child("MyInviteList").child(entry_uid.getKey()).child("Reciever_UID").setValue(entry_uid.getValue().toString());
         }
     }
 
@@ -229,8 +239,6 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
         for(Map.Entry<String,?> entry:allExtraResources.entrySet())
         {
             databaseReference.child("ExtraResources").child(entry.getKey()).setValue(entry.getValue().toString());
-            /*Log.i("Key",entry.getKey());
-            Log.i("Value",entry.getValue().toString());*/
         }
     }
 

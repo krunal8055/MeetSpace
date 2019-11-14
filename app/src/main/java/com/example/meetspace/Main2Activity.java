@@ -29,11 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-public class Main2Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Main2Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public Toolbar toolbar;
-    TextView Emp_Id,Emp_Name,Designation;
-    String id,first_name,last_name,designation;
-    FirebaseAuth  firebaseAuth;
+    TextView Emp_Id, Emp_Name, Designation;
+    String id, first_name, last_name, designation;
+    FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -71,8 +71,8 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         Emp_Name = HomeNavigationView.getHeaderView(0).findViewById(R.id.user_name_nav_drw);
         Designation = HomeNavigationView.getHeaderView(0).findViewById(R.id.user_designation_nav_drw);
         navController = Navigation.findNavController(this, R.id.home_fragment);
-        NavigationUI.setupActionBarWithNavController(this,navController,HomedrawerLayout);
-        NavigationUI.setupWithNavController(HomeNavigationView,navController);
+        NavigationUI.setupActionBarWithNavController(this, navController, HomedrawerLayout);
+        NavigationUI.setupWithNavController(HomeNavigationView, navController);
         HomeNavigationView.setNavigationItemSelectedListener(this);
 
     }
@@ -86,16 +86,15 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                {
+                if (dataSnapshot.exists()) {
                     id = dataSnapshot.child(UID).child("Emp_id").getValue().toString();
                     first_name = dataSnapshot.child(UID).child("Firstname").getValue().toString();
                     last_name = dataSnapshot.child(UID).child("Lastname").getValue().toString();
                     designation = dataSnapshot.child(UID).child("Designation").getValue().toString();
                     Emp_Id.setText(id);
-                    Emp_Name.setText(first_name+" "+last_name);
+                    Emp_Name.setText(first_name + " " + last_name);
                     Designation.setText(designation);
-                    System.out.println("ID="+id+"\n"+"Name="+first_name+" "+last_name+"\n"+"Designation="+designation);
+                    System.out.println("ID=" + id + "\n" + "Name=" + first_name + " " + last_name + "\n" + "Designation=" + designation);
                 }
             }
 
@@ -105,25 +104,22 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             }
         });
     }
-    private void GetToakenID()
-    {
-        firebaseAuth= FirebaseAuth.getInstance();
-        firebaseUser= firebaseAuth.getCurrentUser();
+
+    private void GetToakenID() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("User");
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     String uid = firebaseUser.getUid();
                     TokenID = task.getResult().getToken();
                     databaseReference.child(uid).child("Tokenid").setValue(TokenID);
-                }
-                else
-                {
-                 Toast.makeText(Main2Activity.this, (CharSequence) task.getException(),Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(Main2Activity.this, (CharSequence) task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -134,24 +130,21 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onSupportNavigateUp() {
         setdata_in_drawer_layout();
-        return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.home_fragment),HomedrawerLayout) || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.home_fragment), HomedrawerLayout) || super.onSupportNavigateUp();
     }
 
     @Override
     public void onBackPressed() {
-        if(HomedrawerLayout.isDrawerOpen(GravityCompat.START))
-        {
+        if (HomedrawerLayout.isDrawerOpen(GravityCompat.START)) {
             HomedrawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else
-        {
-                super.onBackPressed();
+        } else {
+            super.onBackPressed();
         }
     }
-    private void DeleteToken()
-    {
-        firebaseAuth= FirebaseAuth.getInstance();
-        firebaseUser= firebaseAuth.getCurrentUser();
+
+    private void DeleteToken() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         String uid = firebaseUser.getUid();
         databaseReference.child(uid).child("Tokenid").removeValue();
     }
@@ -162,16 +155,15 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         item.setCheckable(true);
         HomedrawerLayout.closeDrawers();
         int id = item.getItemId();
-        switch (id)
-        {
+        switch (id) {
             case R.id.home_nav_drawer:
                 navController.navigate(R.id.action_homepage_self);
                 break;
             case R.id.log_out_nav_draw:
                 DeleteToken();
                 firebaseAuth.signOut();
-                Intent i = new Intent(this, MainActivity.class);
-                startActivity(i);
+                Intent intent_signout = new Intent(this, MainActivity.class);
+                startActivity(intent_signout);
                 finish();
                 break;
             case R.id.my_booking_nav_draw:
@@ -181,7 +173,10 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
                 navController.navigate(R.id.action_homepage_to_edit_Profile);
                 break;
             case R.id.notification_nav_draw:
-                navController.navigate(R.id.action_homepage_to_noitifcationPage);
+                //navController.navigate(R.id.action_homepage_to_noitifcationPage);
+                Intent intent_notification = new Intent(this, NotificationPage.class);
+                startActivity(intent_notification);
+                //finish();
                 break;
         }
         return false;
