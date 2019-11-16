@@ -2,8 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
+
+    <TextView
+        android:id="@+id/user_name_invite_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="UserName"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_weight="1"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_gravity="center_vertical"
+        android:id="@+id/invite_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite"
+        android:layout_weight="0"
+        style="@style/Button"
+        android:textSize="14sp"
+        android:layout_marginEnd="10dp" />
     <ImageButton
         android:id="@+id/cancel_invite_btn"
         android:layout_width="wrap_content"
@@ -14,25 +39,5 @@
         android:tint="@color/light_blue"
         android:background="@android:color/transparent"
         android:visibility="gone"/>
-    <TextView
-        android:id="@+id/user_name_invite_list"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:hint="UserName"
-        android:textColor="@android:color/black"
-        android:textSize="20dp"
-        android:paddingStart="20dp"
-        android:layout_weight="1"
-        android:paddingEnd="20dp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:layout_gravity="center_vertical"/>
-    <Button
-        android:layout_gravity="center_vertical"
-        android:id="@+id/invite_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Invite"
-        android:layout_marginEnd="20dp" />
 
 </LinearLayout>

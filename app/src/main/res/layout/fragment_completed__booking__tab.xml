@@ -35,7 +35,12 @@
 
     </androidx.recyclerview.widget.RecyclerView>
   </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
+  <ProgressBar
+      android:id="@+id/progress_bar_completed_booking"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@android:color/white"
+      android:progressBackgroundTint="@color/light_blue"
+      android:layout_gravity="center"
+      android:visibility="gone"/>
 </FrameLayout>

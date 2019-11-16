@@ -49,9 +49,9 @@
     </RelativeLayout>
     <ProgressBar
         android:id="@+id/progress_bar_resource_list"
-        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
         android:progressBackgroundTint="@color/light_blue"
         android:theme="@style/Widget.AppCompat.ProgressBar"
         android:visibility="gone"
@@ -77,15 +77,15 @@ android:id="@+id/linear_for_btn_booking3"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:background="@android:color/white"
-android:layout_gravity="bottom"
-    >
-<Button
-    android:id="@+id/next_button_booking_3"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:text="Next"
-    />
+android:layout_gravity="bottom">
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/next_button_booking_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Next"
+        style="@style/Button"
+        android:textSize="16sp" />
 </LinearLayout>
 
 </FrameLayout>

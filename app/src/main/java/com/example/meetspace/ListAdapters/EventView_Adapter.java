@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetspace.Event_view;
 import com.example.meetspace.ModelClass.MyBooking;
 import com.example.meetspace.R;
 

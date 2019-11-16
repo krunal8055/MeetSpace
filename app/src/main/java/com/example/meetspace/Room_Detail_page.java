@@ -2,8 +2,10 @@ package com.example.meetspace;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 public class Room_Detail_page extends Fragment implements View.OnClickListener {
     Context context;
     ImageView Room_Image;
-    TextView Catagory,FloorNo,Status,Capacity,SoftwareList,HardwareList;
+    TextView Catagory,FloorNo,Capacity,SoftwareList,HardwareList;
     Button Check_Schedule,BookRoom;
     Bundle bundle;
     String SelectedRoom;
@@ -43,7 +45,7 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
     DatabaseReference databaseReference;
     NavController navController;
     ProgressBar progressBar;
-    final AvailableResource_Room availableResource_room = new AvailableResource_Room();
+    //final AvailableResource_Room availableResource_room = new AvailableResource_Room();
     ArrayList<AvailableResource_Room> resourceRoomArrayList = new ArrayList<>();
     ArrayList<AvailableResource_Room> software_arraylist = new ArrayList<>();
     public Room_Detail_page() {
@@ -70,7 +72,7 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
         Room_Image = view.findViewById(R.id.room_img_room_detail);
         Catagory = view.findViewById(R.id.catagory_room_detail);
         FloorNo = view.findViewById(R.id.floor_room_detail);
-        Status = view.findViewById(R.id.room_status_room_detail);
+        //Status = view.findViewById(R.id.room_status_room_detail);
         Capacity = view.findViewById(R.id.capacity_room_detail);
         SoftwareList = view.findViewById(R.id.software_room_detail);
         HardwareList = view.findViewById(R.id.hardware_room_detail);
@@ -102,7 +104,7 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
                     progressBar.setVisibility(View.GONE);
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     setRoomImage();
-                    Status.setText(dataSnapshot.child(SelectedRoom).child("Roomstatus").getValue().toString());
+                    //Status.setText(dataSnapshot.child(SelectedRoom).child("Roomstatus").getValue().toString());
                     Catagory.setText(dataSnapshot.child(SelectedRoom).child("Roomcatagory").getValue().toString());
                     FloorNo.setText(dataSnapshot.child(SelectedRoom).child("Floorno").getValue().toString());
                     Capacity.setText(dataSnapshot.child(SelectedRoom).child("Roomcapacity").getValue().toString());
@@ -165,6 +167,7 @@ public class Room_Detail_page extends Fragment implements View.OnClickListener {
 
     private void setRoomImage() {
         position = bundle.getInt("SelectedPosition");
+
         if(position % 5 == 0)
         {
             Room_Image.setImageResource(R.drawable.meeting_room_5);

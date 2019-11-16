@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="Start Time"
             android:gravity="center_horizontal|end"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/light_blue"
             android:layout_weight="1"/>
         <TextView
@@ -31,13 +31,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="start Time"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:paddingStart="20dp"
             android:textColor="@color/Orange"
             android:textColorHint="@color/Orange"
             android:gravity="center_horizontal|start"
             android:layout_weight="1"/>
     </LinearLayout>
+           <LinearLayout
+               android:layout_width="2dp"
+               android:layout_height="match_parent"
+               android:background="@android:color/black"
+               />
     <LinearLayout
         android:id="@+id/end_linear_event_item"
         android:layout_width="match_parent"
@@ -49,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="End Time"
             android:gravity="center_horizontal|end"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/light_blue"
             android:layout_weight="1"/>
         <TextView
@@ -58,7 +63,7 @@
             android:layout_height="wrap_content"
             android:hint="end Time"
             android:paddingStart="20dp"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="@color/Orange"
             android:textColorHint="@color/Orange"
             android:gravity="center_horizontal|start"

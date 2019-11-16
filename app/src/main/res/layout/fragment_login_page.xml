@@ -86,36 +86,32 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_weight="0"
-            android:background="@color/Orange"
+            android:layout_margin="20dp"
+            style="@style/Button"
             android:text="Login"
             android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="15dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/forget_password"
-             />
+            app:layout_constraintBottom_toTopOf="@+id/forget_password" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/forget_password"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="@android:color/white"
             android:shadowColor="@android:color/transparent"
             android:text="Forget Password ?"
             android:textColor="#000000"
-            android:textSize="15dp"
+            android:textSize="16sp"
             style="@style/Widget.AppCompat.Button.Borderless"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -131,6 +127,8 @@
                 android:layout_marginTop="8dp"
                 android:minWidth="60dp"
                 android:minHeight="60dp"
+                android:background="@android:color/white"
+                android:progressBackgroundTint="@color/light_blue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

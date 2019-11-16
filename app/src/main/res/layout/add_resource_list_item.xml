@@ -23,10 +23,11 @@
         android:gravity="center_vertical"
         android:layout_weight="0.2"
         android:paddingStart="20dp"/>
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_button_resource_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Button"
         android:text="Add"
         />
     <!--<EditText

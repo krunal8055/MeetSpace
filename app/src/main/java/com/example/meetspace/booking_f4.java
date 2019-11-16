@@ -4,6 +4,15 @@ package com.example.meetspace;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.arch.core.executor.DefaultTaskExecutor;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +22,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,8 +30,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.Timestamp;
+import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.prefs.PreferenceChangeEvent;
 
 
 public class booking_f4 extends Fragment implements View.OnClickListener {
@@ -49,9 +57,9 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
     String time_string = time.toString();
     String InviteMessage,CurrentUserName;
 
-    final Booking_info booking_info = new Booking_info();
+    /*final Booking_info booking_info = new Booking_info();
     ArrayList<Booking_info> bookinglist = new ArrayList<>();
-    boolean data_exist = false;
+    boolean data_exist = false;*/
 
     public booking_f4() {
     }
@@ -86,7 +94,7 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
         user = firebaseAuth.getCurrentUser();
         UID = user.getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        checkExistingBooking();
+        //checkExistingBooking();
 
         BookRoomButton.setOnClickListener(this);
         getDataFromSharedPref();
@@ -119,11 +127,10 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if(view == BookRoomButton)
         {
-
             bookRoom();
         }
     }
-    public void checkExistingBooking()
+    /*public void checkExistingBooking()
     {
         databaseReference = firebaseDatabase.getReference().child("User");
         databaseReference.child(UID).child("MyBooking").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -152,7 +159,7 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
                 Toast.makeText(context,"Something is wrong with DB. Try Again!",Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 //Booking Process
     private void bookRoom()
     {
@@ -167,7 +174,7 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
                 progressBar.setVisibility(View.GONE);
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
                 //checking for duplicate booking
-                for (int i=0;i<bookinglist.size();i++){
+                /*for (int i=0;i<bookinglist.size();i++){
                     if(bookinglist.get(i).getRoomNO().equals(roomno)&&
                             bookinglist.get(i).getStartTime().equals(start)&&
                             bookinglist.get(i).getEndTime().equals(end)&&
@@ -176,7 +183,7 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
                         break;
                     }
                 }
-                if(!data_exist){
+                if(!data_exist){*/
 
                     //Toast.makeText(context, "Its Unique.", Toast.LENGTH_SHORT).show();
                     databaseReference.child("MyBooking").child(time_string).child("Roomno").setValue(Roomno.getText().toString());
@@ -190,7 +197,7 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
                     progressBar.setVisibility(View.GONE);
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
                     navController.navigate(R.id.action_booking_f4_to_booking_done);
-                }
+               /* }
                 else {
                     progressBar.setVisibility(View.GONE);
                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
@@ -203,7 +210,7 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
                 progressBar.setVisibility(View.GONE);
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);//UnBlock UI
                 Toast.makeText(context,"Null Values Found.Can not Book Room!",Toast.LENGTH_SHORT).show();
-            }
+            }*/}
     }
 
     public void InviteListData()
@@ -214,9 +221,6 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
         Map<String,?> allInvitedUser_token = inviteList_token.getAll();
         for(Map.Entry<String,?> entry_token:allInvitedUser_token.entrySet())
         {
-            //Log.i("key",entry_token.getKey());
-            //Log.i("value", String.valueOf(entry_token.getValue()));
-
             databaseReference.child("MyInviteList").child(entry_token.getKey()).child("Invited_User_token_id").setValue(entry_token.getValue().toString());
             InviteMessage = CurrentUserName+" Invited you for "+Bookingreason.getText().toString() +" in Room no "+Roomno.getText().toString()+" On Date "+Bookingdate.getText().toString()+" From "+Bookingstart.getText().toString()+" To "+Bookingend.getText().toString()+".";
             databaseReference.child("MyInviteList").child(entry_token.getKey()).child("Message").setValue(InviteMessage);
@@ -251,15 +255,12 @@ public class booking_f4 extends Fragment implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
-
                     CurrentUserName= dataSnapshot.child(UID).child("Firstname").getValue().toString()+" "+dataSnapshot.child(UID).child("Lastname").getValue().toString();
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(context,"There is Some Connection Problem. Please Try later!",Toast.LENGTH_SHORT).show();
             }
         });
     }

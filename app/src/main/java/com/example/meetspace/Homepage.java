@@ -1,16 +1,8 @@
 package com.example.meetspace;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +11,19 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStructure;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.meetspace.ListAdapters.List_Adapter;
 import com.example.meetspace.ModelClass.list_data;
@@ -41,8 +46,8 @@ public class Homepage extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     EditText editText;
-    ImageButton Filter_button;
-    ArrayList<list_data> datalist,filtered_list;
+    ArrayList<list_data> datalist;
+    ArrayList<list_data> filter_search = new ArrayList<>();
     RecyclerView recyclerView;
     List_Adapter listAdapter;
     Bundle recieved_data,SelectedRoom;
@@ -64,6 +69,7 @@ public class Homepage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         progressBar = view.findViewById(R.id.progressBar_home);
         recieved_data=getArguments();
+
         if(recieved_data!=null)
         {
             if(recieved_data.get("date") != null) {
@@ -76,83 +82,70 @@ public class Homepage extends Fragment {
                 Log.i("Recieved Data : End",recieved_data.getString("end_time"));
             }
         }
+
         context = getActivity().getApplicationContext();
-       // ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
-        recyclerView = view.findViewById(R.id.recycler_home_page);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        listAdapter = new List_Adapter(filtered_list,context);
-        recyclerView.setAdapter(listAdapter);
-        //
-
-        navController = Navigation.findNavController(view);
-
-//Search Bar code start
         editText = view.findViewById(R.id.search_bar_edit_text_home);
-
-        Filter_button = view.findViewById(R.id.filter_button_home);
-
+        /*---------------- For Search Bar -----------------*/
         editText.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                filter(charSequence.toString());
+                filter_search(charSequence.toString());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                //editable.clear();
             }
         });
-//search bar code end
 
-
-        /*--------- List Adapter Configuration---------*/
+        /*-------------- Recycler View --------------------*/
+        recyclerView = view.findViewById(R.id.recycler_home_page);
         datalist = new ArrayList<list_data>();
-        filtered_list = new ArrayList<list_data>();
-        listAdapter = new List_Adapter(filtered_list,context);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        listAdapter = new List_Adapter(datalist,context);
         recyclerView.setAdapter(listAdapter);
 
-
-        /*-------List Adapter Configuration enf----------*/
+        navController = Navigation.findNavController(view);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         fromFirebaseToList();
-
-
-        //FilterButton Action start
-        Filter_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_homepage_to_filter_page);
-
-            }
-        });
-
-        //FilterButton Action End
     }
 
+    private void filter_search(String toString) {
+        filter_search.clear();
+
+        for(list_data item: datalist)
+        {
+            if(item.getRoom_no().contains(toString))
+            {
+                filter_search.add(item);
+            }
+        }
+        datalist.clear();
+        datalist.addAll(filter_search);
+        listAdapter.notifyDataSetChanged();
+        //listAdapter.filterList(filter_search);
+    }
     private void fromFirebaseToList()
     {
         progressBar.setVisibility(View.VISIBLE);
         datalist.clear();
-        filtered_list.clear();
         listAdapter.notifyDataSetChanged();
         databaseReference.child("Room").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
-
-                    //JSONObject object = new JSONObject();
                     for(DataSnapshot ds : dataSnapshot.getChildren())
                     {
                         datalist.add(new list_data(ds.getKey()));
-                        filtered_list.add(new list_data(ds.getKey()));
                     }
                     progressBar.setVisibility(View.GONE);
                     listAdapter.notifyDataSetChanged();
@@ -166,34 +159,16 @@ public class Homepage extends Fragment {
             }
         });
     }
-
-
-//for Filter Data from Recycler view
-    private void filter(String FilterString) {
-        filtered_list.clear();
-        for(list_data item :datalist)
-        {
-            if(item.getRoom_no().toLowerCase().startsWith(FilterString.toLowerCase()))
-            {
-                    filtered_list.add(item);
-            }
-        }
-        listAdapter.notifyDataSetChanged();
-    }
-
-
     public View.OnClickListener onClickListner = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
-            //Toast.makeText(getActivity().getApplicationContext(),datalist.get(position).getRoom_no()+" Selected!",Toast.LENGTH_LONG).show();
+
             SelectedRoom = new Bundle();
             SelectedRoom.putString("SelectedRoomNo",datalist.get(position).getRoom_no());
             SelectedRoom.putInt("SelectedPosition",position);
-
             navController.navigate(R.id.action_homepage_to_room_Detail_page,SelectedRoom);
-            //navController.navigate(R.id.To_Room_Detail,Data);   to_room_detail is id from navigation graph and data is data which u can send to that page with bundle
         }
     };
 

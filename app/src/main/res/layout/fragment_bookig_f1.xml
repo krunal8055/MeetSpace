@@ -221,21 +221,23 @@
                             android:textSize="20dp" />
                     </LinearLayout>
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/next_button_booking_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Next"
+                        android:textSize="16dp"
                         android:textColor="@android:color/white"
-                        android:background="@color/Orange"
+                        style="@style/Button"
                         android:layout_margin="20dp"/>
                 </LinearLayout>
                 <ProgressBar
                     android:id="@+id/progress_bar_booking_details"
-                    style="?android:attr/progressBarStyle"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:progressBackgroundTint="@color/Orange"
+                    android:progressBackgroundTint="@color/light_blue"
+                    android:background="@android:color/white"
                     android:theme="@style/Widget.AppCompat.ProgressBar"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"

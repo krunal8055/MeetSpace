@@ -16,5 +16,19 @@
     <string name="spinner_item_3">Labs</string>
     <string name="spinner_item_4">Others</string>
     <string name="default_notification_channel_id">MeetSpace_CH_1</string>
+    <string name="app_feature_about_us">
+        Main features of the Application.\n
+        Login For Employee.\n
+        Room Details.\n
+        Room Schedules.\n
+        Book Room.\n
+        Manage Booking.\n
+        Invite Other Logged in Users.\n
+        Add Aditional Resource in Perticular room.\n
+        Upcoming or Completed booking list.\n
+        Notifications.\n
+        Accept or Reject invitation.
+    </string>
+    <string name="app_version_about_us">Version 1.0</string>
 </resources>
 

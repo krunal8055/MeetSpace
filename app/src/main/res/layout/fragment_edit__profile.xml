@@ -106,31 +106,6 @@
                             android:textColorHint="@color/Orange"
                             android:textSize="20dp" />
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Email ID :"
-                            android:textColor="@android:color/white"
-                            android:textSize="20dp" />
-
-                        <TextView
-                            android:id="@+id/email_id_edit_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:hint="email_id"
-                            android:textColor="@color/Orange"
-                            android:textColorHint="@color/Orange"
-                            android:textSize="20dp" />
-                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -142,6 +117,36 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/bg_edit_profile">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email ID :"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:textColor="@color/light_blue"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/email_id_edit_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:hint="email_id"
+                            android:layout_weight="1"
+                            android:textColor="@color/Orange"
+                            android:textColorHint="@color/Orange"
+                            android:textSize="20sp" />
+                    </LinearLayout>
                     <!-- First Name Text Input Layout -->
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -273,13 +278,14 @@
 
 
                 </LinearLayout>
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/save_edit_profile"
+                    style="@style/Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
                     android:text="Save Changes"
-                    android:textSize="20dp"
+                    android:textSize="16sp"
+                    android:layout_margin="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

@@ -16,6 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/done_txt"
             android:layout_marginTop="50dp"/>
         <LinearLayout
             android:id="@+id/room_no_linear_done"
@@ -25,6 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/done_txt"
+            app:layout_constraintBottom_toTopOf="@+id/booking_ref_linear_done"
             android:background="@color/light_silver"
             android:padding="20dp"
             android:layout_marginTop="20dp"
@@ -37,7 +39,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="10sp"
                 android:gravity="center_horizontal"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textColor="@color/light_blue"/>
             <TextView
                 android:id="@+id/room_no_done"
@@ -46,7 +48,7 @@
                 android:hint="Room no"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textColor="@color/Orange"
                 android:layout_marginEnd="10sp"/>
         </LinearLayout>
@@ -59,6 +61,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/done_icon"
+            app:layout_constraintBottom_toTopOf="@+id/room_no_linear_done"
             android:textSize="30sp"
             android:textColor="@color/Orange"
             android:gravity="center_horizontal"
@@ -90,21 +93,29 @@
                 android:hint="refrence no"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textColor="@color/Orange"
                 android:layout_marginEnd="10sp"/>
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_gravity="bottom">
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/back_to_home_button"
             android:text="Back to Home Page"
+            style="@style/Button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
+            android:textSize="16sp"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/booking_ref_linear_done"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/progress_bar_booking_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:progressBackgroundTint="@color/light_blue"
+        android:background="@android:color/white"
+        android:visibility="gone"/>
 </FrameLayout>

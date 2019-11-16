@@ -2,6 +2,7 @@ package com.example.meetspace.ListAdapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,11 @@ import com.example.meetspace.Booking_Activity;
 import com.example.meetspace.ModelClass.MyBooking;
 import com.example.meetspace.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -26,6 +31,7 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
     Boolean aBoolean;
     Context context;
     FirebaseDatabase firebaseDatabase= FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference();
     String uid = FirebaseAuth.getInstance().getUid();
     private View.OnClickListener itemClickListner;
 
@@ -51,8 +57,8 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
         holder.end.setText(myBookingArrayList.get(position).getEnd());
         if(aBoolean !=true) {
             holder.edit.setVisibility(View.GONE);
-            holder.delete.setVisibility(View.GONE);
-            holder.l1.setVisibility(View.GONE);
+            //holder.delete.setVisibility(View.GONE);
+            //holder.l1.setVisibility(View.GONE);
         }
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,28 +80,40 @@ public class MyBookingAdapter extends RecyclerView.Adapter<MyBookingAdapter.View
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseDatabase.getReference().child("User").child(uid).child("MyBooking").child(myBookingArrayList.get(position).getBookingID()).removeValue();
-                Toast.makeText(context,"Booking Deleted Successfully!",Toast.LENGTH_SHORT).show();
-                myBookingArrayList.remove(position);
-                notifyDataSetChanged();
+                final String bookingID = databaseReference.child("User").child(uid).child("MyBooking").child(myBookingArrayList.get(position).getBookingID()).getKey();
+                databaseReference.child("User").child(uid).child("MyBooking").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                            for(DataSnapshot ds: dataSnapshot.getChildren()) {
+                                if (ds.getKey().equals(bookingID)) {
+                                    databaseReference.child("User").child(uid).child("MyBooking").child(myBookingArrayList.get(position).getBookingID()).removeValue();
+                                    Toast.makeText(context,"Booking Deleted Successfully!", Toast.LENGTH_SHORT).show();
+                                            myBookingArrayList.remove(position);
+                                            notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(context, "You Can not Delete this Booking!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
         holder.bind(myBooking);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*if (aBoolean == false)
-                {
-                    myBooking.setExpanded(aBoolean);
-                }
-                else
-                {*/
                     boolean expanded = myBooking.isExpanded();
                     myBooking.setExpanded(!expanded);
                     notifyDataSetChanged();
                 }
-           // }
         });
 
     }

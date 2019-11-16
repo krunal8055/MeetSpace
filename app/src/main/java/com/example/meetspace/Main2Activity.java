@@ -1,26 +1,37 @@
 package com.example.meetspace;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +39,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main2Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public Toolbar toolbar;
@@ -157,8 +171,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         int id = item.getItemId();
         switch (id) {
             case R.id.home_nav_drawer:
-                navController.navigate(R.id.action_homepage_self);
-                break;
+                    navController.navigate(R.id.action_homepage_self);
             case R.id.log_out_nav_draw:
                 DeleteToken();
                 firebaseAuth.signOut();
@@ -171,6 +184,9 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.edit_profile_nav_drawer:
                 navController.navigate(R.id.action_homepage_to_edit_Profile);
+                break;
+            case R.id.about_us_nav_draw:
+                navController.navigate(R.id.action_homepage_to_about_us_page);
                 break;
             case R.id.notification_nav_draw:
                 //navController.navigate(R.id.action_homepage_to_noitifcationPage);

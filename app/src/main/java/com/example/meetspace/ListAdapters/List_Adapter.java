@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import com.example.meetspace.ModelClass.list_data;
 import com.example.meetspace.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class List_Adapter extends RecyclerView.Adapter<List_Adapter.ViewHolder> {
 
@@ -28,13 +31,13 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.ViewHolder> 
 
     @NonNull
     @Override
-    public List_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull List_Adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.room_no_txt.setText(listarray.get(position).getRoom_no());
         if(position % 5 == 0)
         {
@@ -61,12 +64,18 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
+
         return listarray.size();
     }
 
     public void setOnClickListner(View.OnClickListener clickListner)
     {
         itemClickListner = clickListner;
+    }
+
+    public void filterList(ArrayList<list_data> filter_search) {
+        listarray = filter_search;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,4 +89,5 @@ public class List_Adapter extends RecyclerView.Adapter<List_Adapter.ViewHolder> 
             itemView.setOnClickListener(itemClickListner);
         }
     }
+
 }

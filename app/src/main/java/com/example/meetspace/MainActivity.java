@@ -1,11 +1,14 @@
 package com.example.meetspace;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
+
+import android.graphics.Color;
+import android.os.Bundle;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         main_toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(main_toolbar);
-
+        main_toolbar.setTitleTextColor(Color.WHITE);
         navController = Navigation.findNavController(this, R.id.login_fragment);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

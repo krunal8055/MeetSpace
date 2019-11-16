@@ -45,15 +45,15 @@
     </androidx.recyclerview.widget.RecyclerView>
     <ProgressBar
         android:id="@+id/progressBar_notification"
-        style="?android:attr/progressBarStyle"
         android:theme="@style/Widget.AppCompat.ProgressBar"
-        android:progressBackgroundTint="@color/Orange"
+        android:progressBackgroundTint="@color/light_blue"
+        android:background="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

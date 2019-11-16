@@ -3,21 +3,26 @@ package com.example.meetspace.MyBookingTab;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetspace.ListAdapters.MyBookingAdapter;
 import com.example.meetspace.ModelClass.MyBooking;
+import com.example.meetspace.ModelClass.Notification_data;
 import com.example.meetspace.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +49,7 @@ public class Upcoming_Booking_Tab extends Fragment {
     DatabaseReference databaseReference,dbref;
     Boolean aBoolean = true;
     TextView textView;
-
+    ProgressBar progressBar;
 
     //Current Date and Time Get Start
     Calendar calendar = Calendar.getInstance();
@@ -55,10 +60,10 @@ public class Upcoming_Booking_Tab extends Fragment {
     int yy = calendar.get(Calendar.YEAR);
     int hh = calendar.get(Calendar.HOUR_OF_DAY);
     int MM = calendar.get(Calendar.MINUTE);
-    final String current_time = hh + ":" + MM;
-    final String current_date = dd + "/" + (mm) + "/" + yy;
-    Date d1 = null;
-    Date t1 = null;
+    final String current_time_s = hh + ":" + MM;
+    final String current_date_s = dd + "/" + (mm) + "/" + yy;
+    Date current_date_d = null;
+    Date current_time_d = null;
     //Current Date and Time Get End
 
     public Upcoming_Booking_Tab() {
@@ -77,36 +82,26 @@ public class Upcoming_Booking_Tab extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getActivity().getApplicationContext();
+        progressBar = view.findViewById(R.id.progress_bar_upcoming_booking);
+        //RECYCLER VIEW SetUP
         UpcomingBooking_recycler = view.findViewById(R.id.upcoming_Booking_recycler);
         UpcomingBooking_recycler.setLayoutManager(new LinearLayoutManager(context));
         myBookingAdapter = new MyBookingAdapter(myBookingArrayList,context, aBoolean);
         UpcomingBooking_recycler.setAdapter(myBookingAdapter);
+
         textView = view.findViewById(R.id.nil_upcoming_text);
-        if(myBookingArrayList.size() == 0)
-        {
-            UpcomingBooking_recycler.setVisibility(View.GONE);
-            textView.setVisibility(View.VISIBLE);
-            myBookingAdapter.notifyDataSetChanged();
-        }
         getcurrentDateAndTimeObj();
         getAcceptedBookingFromDB();
         getBookingsFromDB();
-
     }
 
     public void getcurrentDateAndTimeObj()
     {
         try {
-            d1 = date_format.parse(current_date);
-            Log.i("D1", d1.toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            t1 = time_format.parse(current_time);
-            Log.i("T1", t1.toString());
+            current_date_d = date_format.parse(current_date_s);
+            Log.i("D1", current_date_d.toString());
+            current_time_d = time_format.parse(current_time_s);
+            Log.i("T1", current_time_d.toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -115,8 +110,7 @@ public class Upcoming_Booking_Tab extends Fragment {
 
     private void getAcceptedBookingFromDB()
     {
-        final Date finalD = d1;
-        final Date finalT = t1;
+        progressBar.setVisibility(View.VISIBLE);
         firebaseAuth = FirebaseAuth.getInstance();
         uid = firebaseAuth.getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -128,21 +122,18 @@ public class Upcoming_Booking_Tab extends Fragment {
             {
                 if(dataSnapshot.exists())
                 {
-
                     for(DataSnapshot main: dataSnapshot.getChildren())
                     {
-
                         if (!main.getKey().equals(uid))
                         {
-
                             for (DataSnapshot ds1 : main.child("MyBooking").getChildren())
                             {
-
                                 for (DataSnapshot ds2 : ds1.child("MyInviteList").getChildren())
                                 {
                                         if(ds2.child("Invitation_Status").getValue().toString().equals("Accepted"))
                                         {
-                                            if(ds2.child("Reciever_UID").getValue().toString().equals(uid)) {
+                                            if(ds2.child("Reciever_UID").getValue().toString().equals(uid))
+                                            {
                                                 String bookingID = ds1.getKey();
                                                 String room = ds1.child("Roomno").getValue().toString();
                                                 String date = ds1.child("Bookingdate").getValue().toString();
@@ -151,52 +142,48 @@ public class Upcoming_Booking_Tab extends Fragment {
                                                 String reason = ds1.child("Booking_reason").getValue().toString();
                                                 String no_person = ds1.child("No_of_person").getValue().toString();
 
-
-                                                Date d2 = null;
+                                                Date booking_d = null;
+                                                Date start_t = null;
+                                                Date end_t = null;
                                                 try {
-                                                    d2 = date_format.parse(date);
-                                                    //Log.i("D2", d2.toString());
-                                                } catch (ParseException e) {
+                                                    booking_d = date_format.parse(date);
+                                                    start_t = time_format.parse(start);
+                                                    end_t = time_format.parse(end);
+                                                }
+                                                catch (ParseException e)
+                                                {
                                                     e.printStackTrace();
                                                 }
 
-                                                Date t2 = null;
-                                                try {
-                                                    t2 = time_format.parse(start);
-                                                    // Log.i("T2",t2.toString());
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
-                                                }
+                                                if(booking_d.compareTo(current_date_d) > 0)
+                                                {
 
-                                                Date t22 = null;
-                                                try {
-                                                    t22 = time_format.parse(end);
-
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
-                                                }
-
-
-                                                if (d2.compareTo(finalD) == 0) {
-                                                    if (t2.compareTo(finalT) > 0) {
-                                                        UpcomingBooking_recycler.setVisibility(View.VISIBLE);
-                                                        textView.setVisibility(View.GONE);
-                                                        myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
-                                                    } else if (t22.compareTo(finalD) < 0) {
-                                                        textView.setVisibility(View.GONE);
-                                                        UpcomingBooking_recycler.setVisibility(View.VISIBLE);
-                                                        myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
-                                                    }
-                                                } else if (d2.compareTo(finalD) > 0) {
+                                                    progressBar.setVisibility(View.GONE);
                                                     textView.setVisibility(View.GONE);
                                                     UpcomingBooking_recycler.setVisibility(View.VISIBLE);
                                                     myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
+
                                                 }
-
-
-                                                textView.setVisibility(View.GONE);
-                                                UpcomingBooking_recycler.setVisibility(View.VISIBLE);
-                                                myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
+                                                else if(booking_d.compareTo(current_date_d) ==0)
+                                                {
+                                                    if(start_t.compareTo(current_time_d) > 0)
+                                                    {
+                                                        if(end_t.compareTo(current_time_d) < 0)
+                                                        {
+                                                            progressBar.setVisibility(View.GONE);
+                                                            textView.setVisibility(View.GONE);
+                                                            UpcomingBooking_recycler.setVisibility(View.VISIBLE);
+                                                            myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
+                                                        }
+                                                        else
+                                                        {
+                                                            progressBar.setVisibility(View.GONE);
+                                                            textView.setVisibility(View.GONE);
+                                                            UpcomingBooking_recycler.setVisibility(View.VISIBLE);
+                                                            myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                 }
@@ -204,6 +191,18 @@ public class Upcoming_Booking_Tab extends Fragment {
                             }
                         }
                     }
+                    if(myBookingArrayList.size() == 0)
+                    {
+                        progressBar.setVisibility(View.GONE);
+                        textView.setVisibility(View.VISIBLE);
+                        UpcomingBooking_recycler.setVisibility(View.GONE);
+                    }
+                }
+                else
+                {
+                    progressBar.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                    UpcomingBooking_recycler.setVisibility(View.GONE);
                 }
             }
 
@@ -217,9 +216,9 @@ public class Upcoming_Booking_Tab extends Fragment {
 
 
 
-    private void getBookingsFromDB() {
-        final Date finalD = d1;
-        final Date finalT = t1;
+    private void getBookingsFromDB()
+    {
+        progressBar.setVisibility(View.VISIBLE);
         firebaseAuth = FirebaseAuth.getInstance();
         String UID = firebaseAuth.getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -239,56 +238,63 @@ public class Upcoming_Booking_Tab extends Fragment {
                         String no_person = ds.child("No_of_person").getValue().toString();
                         //MyBooking myBooking = new MyBooking(reason,no_person);
 
-                        Date d2 = null;
+                        Date booking_d = null;
+                        Date start_t = null;
+                        Date end_t = null;
                         try {
-                            d2 = date_format.parse(date);
-                            //Log.i("D2", d2.toString());
+                            booking_d = date_format.parse(date);
+                            start_t = time_format.parse(start);
+                            end_t = time_format.parse(end);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
 
-                        Date t2 = null;
-                        try {
-                            t2 = time_format.parse(start);
-                            // Log.i("T2",t2.toString());
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        if(booking_d.compareTo(current_date_d) > 0)
+                        {
 
-                        Date t22 = null;
-                        try {
-                            t22 = time_format.parse(end);
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        if (d2.compareTo(finalD) == 0) {
-                            if (t2.compareTo(finalT) > 0) {
-                                UpcomingBooking_recycler.setVisibility(View.VISIBLE);
-                                textView.setVisibility(View.GONE);
-                                myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
-                            } else if (t22.compareTo(finalD) < 0) {
-                                textView.setVisibility(View.GONE);
-                                UpcomingBooking_recycler.setVisibility(View.VISIBLE);
-                                myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
-                            }
-                        } else if (d2.compareTo(finalD) > 0) {
+                            progressBar.setVisibility(View.GONE);
                             textView.setVisibility(View.GONE);
                             UpcomingBooking_recycler.setVisibility(View.VISIBLE);
                             myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
+
                         }
-
-                        // Log.i("Data",room+"/n"+date+"/n"+start+"/n"+end);
-
+                        else if(booking_d.compareTo(current_date_d) ==0)
+                        {
+                            if(start_t.compareTo(current_time_d) > 0)
+                            {
+                                if(end_t.compareTo(current_time_d) < 0)
+                                {
+                                    progressBar.setVisibility(View.GONE);
+                                    textView.setVisibility(View.GONE);
+                                    UpcomingBooking_recycler.setVisibility(View.VISIBLE);
+                                    myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
+                                }
+                                else
+                                {
+                                    progressBar.setVisibility(View.GONE);
+                                    textView.setVisibility(View.GONE);
+                                    UpcomingBooking_recycler.setVisibility(View.VISIBLE);
+                                    myBookingArrayList.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
+                                }
+                            }
+                        }
                     }
                     myBookingAdapter.notifyDataSetChanged();
                     myBookingAdapter.setOnClickListner(onClickListener);
-
+                    if(myBookingArrayList.size() == 0)
+                    {
+                        progressBar.setVisibility(View.GONE);
+                        textView.setVisibility(View.VISIBLE);
+                        UpcomingBooking_recycler.setVisibility(View.GONE);
+                    }
+                }
+                else
+                {
+                    progressBar.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                    UpcomingBooking_recycler.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(context,"Database Fetching Error"+databaseError.toString(),Toast.LENGTH_SHORT).show();

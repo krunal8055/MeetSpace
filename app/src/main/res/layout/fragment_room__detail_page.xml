@@ -9,28 +9,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/room_img_room_detail"
+        <LinearLayout
+            android:id="@+id/room_image_linear"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
+            android:layout_height="0dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/info_linear_room_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/room_img_room_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
+
      <!-- Linear for Details show -->
         <LinearLayout
             android:id="@+id/info_linear_room_details"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:background="@color/light_blue"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/available_res_linear_room_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/room_img_room_detail">
+            app:layout_constraintTop_toBottomOf="@+id/room_image_linear">
             <!--app:layout_constraintTop_toBottomOf="@+id/room_info_linear_room_detail"-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,9 +52,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -57,8 +67,8 @@
                         android:id="@+id/catagory_room_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="catagory"
                         android:gravity="center"
+                        android:hint="catagory"
                         android:textColor="@color/Orange"
                         android:textColorHint="@android:color/white"
                         android:textSize="14dp" />
@@ -67,10 +77,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -83,54 +92,19 @@
                         android:id="@+id/floor_room_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:hint="floor no"
-                        android:gravity="center"
                         android:textColor="@color/Orange"
                         android:textColorHint="@android:color/white"
                         android:textSize="14dp" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Status"
-                        android:textColor="@android:color/white"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/room_status_room_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="status"
-                        android:paddingStart="10dp"
-                        android:textColor="@color/Orange"
-                        android:gravity="center"
-                        android:textColorHint="@android:color/white"
-                        android:textSize="14dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -143,9 +117,9 @@
                         android:id="@+id/capacity_room_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:hint="capacity"
                         android:paddingStart="10dp"
-                        android:gravity="center"
                         android:textColor="@color/Orange"
                         android:textColorHint="@android:color/white"
                         android:textSize="14dp" />
@@ -157,8 +131,9 @@
             android:id="@+id/available_res_linear_room_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
             android:orientation="vertical"
-
+            app:layout_constraintBottom_toTopOf="@+id/buttons_linear_room_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info_linear_room_details">
@@ -174,9 +149,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp">
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -188,13 +163,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/Orange"
                         android:gravity="center"
                         android:text="Software"
                         android:textColor="@android:color/white"
-                        android:textSize="16dp"
-                        android:background="@color/Orange"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/software_room_detail"
@@ -203,31 +178,31 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:background="@color/light_blue"
-                        android:textColor="@android:color/white"
                         android:gravity="center"
                         android:minLines="1"
                         android:scrollbars="vertical"
+                        android:textColor="@android:color/white"
                         android:textSize="14dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginTop="10dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/Orange"
                         android:gravity="center"
                         android:text="Hardware"
                         android:textColor="@android:color/white"
-                        android:textSize="16dp"
-                        android:background="@color/Orange"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/hardware_room_detail"
@@ -236,10 +211,10 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:background="@color/light_blue"
-                        android:textColor="@android:color/white"
                         android:gravity="center"
                         android:minLines="1"
                         android:scrollbars="vertical"
+                        android:textColor="@android:color/white"
                         android:textSize="14dp" />
 
                 </LinearLayout>
@@ -250,37 +225,39 @@
             android:id="@+id/buttons_linear_room_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="20dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/available_res_linear_room_details">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/chk_schedule_room_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Check Schedule"
-                android:textSize="15dp" />
+                style="@style/Button"
+                android:textSize="16sp"
+                android:layout_marginBottom="5dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/booking_room_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Book This Room"
-                android:textSize="15dp" />
+                style="@style/Button"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
 
         <ProgressBar
             android:id="@+id/progress_bar_room_detail"
-            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progressBackgroundTint="@color/Orange"
+            android:progressBackgroundTint="@color/light_blue"
+            android:background="@android:color/white"
             android:theme="@style/Widget.AppCompat.ProgressBar"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"

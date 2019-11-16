@@ -3,16 +3,20 @@ package com.example.meetspace;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +34,7 @@ public class booking_done extends Fragment implements View.OnClickListener {
     FirebaseUser firebaseUser;
     TextView Roomno,BookingRef;
     Button BackToHomeButton;
+    ProgressBar progressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,7 +46,7 @@ public class booking_done extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
+        progressBar = view.findViewById(R.id.progress_bar_booking_done);
         Roomno = view.findViewById(R.id.room_no_done);
         BookingRef = view.findViewById(R.id.booking_ref_done);
         BackToHomeButton = view.findViewById(R.id.back_to_home_button);
@@ -54,6 +59,7 @@ public class booking_done extends Fragment implements View.OnClickListener {
 
     public void getBookingRef()
     {
+        progressBar.setVisibility(View.VISIBLE);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("User");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -69,6 +75,7 @@ public class booking_done extends Fragment implements View.OnClickListener {
                     {
                         //Log.i("Booking Ref",ds.getKey());
                         //Log.i("Room no",);
+                        progressBar.setVisibility(View.GONE);
                         String ref = ds.getKey();
                         BookingRef.setText(ref);
                         Roomno.setText(ds.child("Roomno").getValue().toString());

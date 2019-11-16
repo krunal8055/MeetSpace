@@ -42,5 +42,11 @@
     <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/light_blue</item>
     </style>
+    <style name="Button" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:backgroundTint">@color/Orange</item>
+        <item name="android:background">@drawable/textview_boarder_black</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/lucidabrightdemibold</item>
+    </style>
 
 </resources>

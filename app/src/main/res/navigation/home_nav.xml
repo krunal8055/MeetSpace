@@ -17,11 +17,6 @@
             android:id="@+id/action_homepage_to_myBookingPage"
             app:destination="@id/myBookingPage" />
         <action
-            android:id="@+id/action_homepage_to_filter_page"
-            app:destination="@id/filter_page"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/action_homepage_to_room_Detail_page"
             app:destination="@id/room_Detail_page" />
         <action
@@ -36,15 +31,6 @@
         android:name="com.example.meetspace.MyBookingPage"
         android:label="My Boooking"
         tools:layout="@layout/fragment_my_booking_page" />
-    <fragment
-        android:id="@+id/filter_page"
-        android:name="com.example.meetspace.Filter_page"
-        android:label="Filter"
-        tools:layout="@layout/fragment_filter_page" >
-        <action
-            android:id="@+id/action_filter_page_to_homepage"
-            app:destination="@id/homepage" />
-    </fragment>
     <fragment
         android:id="@+id/room_Detail_page"
         android:name="com.example.meetspace.Room_Detail_page"
@@ -71,6 +57,6 @@
     <fragment
         android:id="@+id/about_us_page"
         android:name="com.example.meetspace.About_us_page"
-        android:label="fragment_about_us_page"
+        android:label="About us"
         tools:layout="@layout/fragment_about_us_page" />
 </navigation>

@@ -3,17 +3,19 @@ package com.example.meetspace.MyBookingTab;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetspace.ListAdapters.MyBookingAdapter;
 import com.example.meetspace.ModelClass.MyBooking;
@@ -38,6 +40,7 @@ public class Cancelled_Booking_Tab extends Fragment {
     String uid;
     Boolean aBoolean = false;
     TextView textView;
+    ProgressBar progressBar;
 
     public Cancelled_Booking_Tab() {
         // Required empty public constructor
@@ -55,22 +58,19 @@ public class Cancelled_Booking_Tab extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textView = view.findViewById(R.id.nil_canclled_text);
+        progressBar = view.findViewById(R.id.progress_bar_cancelled_booking);
         //Recycler View
+        Cancle_booking_list.clear();
         cancelled_booking_recycler = view.findViewById(R.id.cancelledBooking_recycler);
         cancelled_booking_recycler.setLayoutManager(new LinearLayoutManager(context));
         myBookingAdapter = new MyBookingAdapter(Cancle_booking_list,context,aBoolean);
         cancelled_booking_recycler.setAdapter(myBookingAdapter);
-        if(Cancle_booking_list.size() == 0)
-        {
-            cancelled_booking_recycler.setVisibility(View.GONE);
-            textView.setVisibility(View.VISIBLE);
-            myBookingAdapter.notifyDataSetChanged();
-        }
         getRejectedBookingFromDB();
     }
 
     private void getRejectedBookingFromDB()
     {
+        progressBar.setVisibility(View.VISIBLE);
         firebaseAuth = FirebaseAuth.getInstance();
         uid = firebaseAuth.getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -82,16 +82,13 @@ public class Cancelled_Booking_Tab extends Fragment {
             {
                 if(dataSnapshot.exists())
                 {
-
+                    progressBar.setVisibility(View.GONE);
                     for(DataSnapshot main: dataSnapshot.getChildren())
                     {
-
                         if (!main.getKey().equals(uid))
                         {
-
                             for (DataSnapshot ds1 : main.child("MyBooking").getChildren())
                             {
-
                                 for (DataSnapshot ds2 : ds1.child("MyInviteList").getChildren())
                                 {
                                     if(ds2.child("Invitation_Status").getValue().toString().equals("Rejected"))
@@ -104,6 +101,7 @@ public class Cancelled_Booking_Tab extends Fragment {
                                             String end = ds1.child("End_time").getValue().toString();
                                             String reason = ds1.child("Booking_reason").getValue().toString();
                                             String no_person = ds1.child("No_of_person").getValue().toString();
+
                                             textView.setVisibility(View.GONE);
                                             cancelled_booking_recycler.setVisibility(View.VISIBLE);
                                             Cancle_booking_list.add(new MyBooking(bookingID, reason, no_person, room, date, start, end));
@@ -114,6 +112,17 @@ public class Cancelled_Booking_Tab extends Fragment {
                             }
                         }
                     }
+                    if(Cancle_booking_list.size()==0)
+                    {
+                        progressBar.setVisibility(View.GONE);
+                        textView.setVisibility(View.VISIBLE);
+                        cancelled_booking_recycler.setVisibility(View.GONE);
+                    }
+                }
+                else {
+                    progressBar.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                    cancelled_booking_recycler.setVisibility(View.GONE);
                 }
             }
 

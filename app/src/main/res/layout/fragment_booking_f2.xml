@@ -30,7 +30,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignBottom="@+id/search_bar_edit_text_home"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true" />
 
             <EditText
                 android:id="@+id/search_bar_edit_text_user_list"
@@ -51,10 +51,10 @@
 
         <ProgressBar
             android:id="@+id/progress_bar_invite_list"
-            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progressBackgroundTint="@color/Orange"
+            android:background="@android:color/white"
+            android:progressBackgroundTint="@color/light_blue"
             android:theme="@style/Widget.AppCompat.ProgressBar"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,12 +83,13 @@
         android:background="@android:color/white"
         android:layout_gravity="bottom"
         >
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/next_button_booking_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="Next"
-            />
+            android:textSize="16sp"
+            style="@style/Button" />
     </LinearLayout>
 </FrameLayout>

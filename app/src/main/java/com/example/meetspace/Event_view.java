@@ -3,11 +3,6 @@ package com.example.meetspace;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,12 +10,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.example.meetspace.ListAdapters.EventView_Adapter;
 import com.example.meetspace.ModelClass.MyBooking;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -54,10 +58,16 @@ String RoomNO;
         textView = view.findViewById(R.id.text_event);
         recyclerView = view.findViewById(R.id.event_list_recycler);
         evenArrayList = new ArrayList<>();
+        evenArrayList.clear();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         eventView_adapter = new EventView_Adapter(evenArrayList,context);
         recyclerView.setAdapter(eventView_adapter);
         progressBar = view.findViewById(R.id.event_list_progress);
+        if(evenArrayList.size() ==0)
+        {
+            textView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }
     }
 
     public void getRoomno(String roomno)
@@ -89,11 +99,17 @@ String RoomNO;
                                 if(date.equals(selectedDate) && room.equals(RoomNO))
                                 {
                                     //Check for Selected Room
-                                        textView.setVisibility(View.GONE);
+                                    textView.setVisibility(View.GONE);
                                         String Start = dataSnapshot1.child("Start_time").getValue().toString();
                                         String End = dataSnapshot1.child("End_time").getValue().toString();
                                         evenArrayList.add(new MyBooking(Start, End));
                                 }
+
+                                if(evenArrayList.size() == 0)
+                                {
+                                    textView.setVisibility(View.VISIBLE);
+                                }
+
                             }
                         }
                     }

@@ -170,6 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:progressBackgroundTint="@color/light_blue"
+            android:background="@android:color/white"
             android:theme="@style/Widget.AppCompat.ProgressBar"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -184,11 +185,13 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:layout_gravity="bottom">
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cf_button_booking_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            style="@style/Button"
+            android:textSize="16sp"
             android:text="Book Room" />
     </LinearLayout>
 </FrameLayout>

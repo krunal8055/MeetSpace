@@ -68,25 +68,26 @@
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:background="@color/cardview_shadow_end_color"
-        android:padding="20px"
+        android:padding="15dp"
         android:visibility="visible"
         android:animateLayoutChanges="true">
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/my_booking_item_edit_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edit"
             android:layout_weight="1"
-            android:textSize="15sp"
-            android:backgroundTint="@color/Orange"
+            android:textSize="16sp"
+            style="@style/Button"
             android:layout_marginEnd="10dp"/>
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/my_booking_item_delete_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Delete"
             android:layout_weight="1"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            style="@style/Button"
             android:backgroundTint="@android:color/holo_red_dark"/>
     </LinearLayout>
     <LinearLayout
