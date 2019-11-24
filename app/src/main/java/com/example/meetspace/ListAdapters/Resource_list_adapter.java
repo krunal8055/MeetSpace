@@ -3,6 +3,7 @@ package com.example.meetspace.ListAdapters;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class Resource_list_adapter extends RecyclerView.Adapter<Resource_list_ad
                 holder.CancleButton.setVisibility(View.GONE);
                 holder.AddButton.setVisibility(View.VISIBLE);
                 extraResource.AddExtraResource(resourceListArrayList.get(position),position,false);
+                Log.i("Removed Resource",resourceListArrayList.get(position).getResourceName());
                 //Toast.makeText(context,resourceListArrayList.get(position).getResourceName()+"Removed!!!",Toast.LENGTH_SHORT).show();
             }
         });
@@ -55,6 +57,7 @@ public class Resource_list_adapter extends RecyclerView.Adapter<Resource_list_ad
                 holder.AddButton.setVisibility(View.GONE);
                 holder.CancleButton.setVisibility(View.VISIBLE);
                 extraResource.AddExtraResource(resourceListArrayList.get(position),position,true);
+                Log.i("Addedd Resource",resourceListArrayList.get(position).getResourceName());
                 //Toast.makeText(context,resourceListArrayList.get(position).getResourceName()+"Added!!!",Toast.LENGTH_SHORT).show();
             }
         });

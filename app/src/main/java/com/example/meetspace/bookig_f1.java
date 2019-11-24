@@ -43,7 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class bookig_f1 extends Fragment implements View.OnClickListener {
+public class    bookig_f1 extends Fragment implements View.OnClickListener {
     ProgressBar progressBar;
     ImageView RoomImage;
     TextView RoomNo, BookingDate, BookingStart, BookingEnd;
@@ -178,31 +178,43 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
                 @Override
                 public void onTimeSet(TimePicker timePicker, int Hour, int Minute) {
 
-                    if (BookingDate.getText().toString().contains(today_date)) {
+                    if (BookingDate.getText().toString().contains(today_date))
+                    {
 
-                        if (Hour >= calendar.get(Calendar.HOUR_OF_DAY)) {
+                        if (Hour >= calendar.get(Calendar.HOUR_OF_DAY))
+                        {
                             String M;
                             //Log.i("Status:", "Booking date is today and Hour>=current");
-                            if (Minute < 10) {
+                            if (Minute < 10)
+                            {
                                 M = "0" + Minute;
-                            } else {
+                            }
+                            else
+                                {
                                 M = String.valueOf(Minute);
                             }
 
                             String H;
-                            if (Hour < 10) {
+                            if (Hour < 10)
+                            {
                                 H = "0" + Hour;
-                            } else {
+                            }
+                            else
+                                {
                                 H = String.valueOf(Hour);
                             }
                             start_time = H + ":" + M;
                             BookingStart.setText(start_time);
                             Log.i("Start", start_time);
                             Log.i("Booking Start Time :", BookingStart.getText().toString());
-                        } else {
+                        }
+                        else
+                            {
                             Toast.makeText(context, "Invalid time!", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
+                    }
+                    else
+                        {
                         String M;
                         if (Minute < 10) {
                             M = "0" + Minute;
@@ -216,6 +228,7 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
                         } else {
                             H = String.valueOf(Hour);
                         }
+
                         start_time = H + ":" + M;
                         BookingStart.setText(start_time);
                         Log.i("Start", start_time);
@@ -290,46 +303,95 @@ public class bookig_f1 extends Fragment implements View.OnClickListener {
             timePicker.show();
             timePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.light_blue));
             timePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.light_blue));
-        } else if (view == NextButton) {
-            if (!i.getBooleanExtra("flag", false)) {
-                if (BookingDate.getText().length() == 0) {
+        }
+        else if (view == NextButton)
+        {
+            if (!i.getBooleanExtra("flag", false)) //Booking Next Button
+            {
+                if (BookingDate.getText().length() == 0)
+                {
                     Toast.makeText(context, "Please enter the booking date!", Toast.LENGTH_SHORT).show();
-                } else if (BookingStart.getText().length() == 0) {
+                }
+                else if (BookingStart.getText().length() == 0)
+                {
                     Toast.makeText(context, "Please enter the booking start time!", Toast.LENGTH_SHORT).show();
-                } else if (BookingEnd.getText().length() == 0) {
+                }
+                else if (BookingEnd.getText().length() == 0)
+                {
                     Toast.makeText(context, "Please enter the booking end time!", Toast.LENGTH_SHORT).show();
-                } else if (BookingReason.getText().length() == 0) {
+                }
+                else if (BookingReason.getText().length() == 0)
+                {
                     Toast.makeText(context, "Please enter the booking reason!", Toast.LENGTH_SHORT).show();
-                } else if (No_of_Person.getText().length() == 0) {
+                }
+                else if (No_of_Person.getText().length() == 0)
+                {
                     Toast.makeText(context, "Please enter no of person!", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (compareTime()) {
+                }
+                else
+                    {
+                        String Start = BookingStart.getText().toString();
+                        String End = BookingEnd.getText().toString();
+                    if(Start.contentEquals("00:") && End.contentEquals("12:"))
+                    {
                         getExistingBooking();
                     }
-                }
-            } else {
-                if (BookingDate.getText().length() == 0) {
-                    Toast.makeText(context, "Please enter the booking date!", Toast.LENGTH_SHORT).show();
-                } else if (BookingStart.getText().length() == 0) {
-                    Toast.makeText(context, "Please enter the booking start time!", Toast.LENGTH_SHORT).show();
-                } else if (BookingEnd.getText().length() == 0) {
-                    Toast.makeText(context, "Please enter the booking end time!", Toast.LENGTH_SHORT).show();
-                } else if (BookingReason.getText().length() == 0) {
-                    Toast.makeText(context, "Please enter the booking reason!", Toast.LENGTH_SHORT).show();
-                } else if (No_of_Person.getText().length() == 0) {
-                    Toast.makeText(context, "Please enter no of person!", Toast.LENGTH_SHORT).show();
-                } else {
-                    if(BookingStart.equals(i.getStringExtra("Start")) && BookingEnd.equals(i.getStringExtra("End"))) {
-                        updateBooking();
-                    }else
+                    else
                     {
-                        if(compareTime())
+                        if (compareTime())
                         {
-                            updateBooking();
+                            getExistingBooking();
                         }
                         else
                         {
-                            Toast.makeText(context,"End time should not greater then Start time!!!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,"End time should not less then Start time!!!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+            else //Booking Update Button
+                {
+                if (BookingDate.getText().length() == 0)
+                {
+                    Toast.makeText(context, "Please enter the booking date!", Toast.LENGTH_SHORT).show();
+                }
+                else if (BookingStart.getText().length() == 0)
+                {
+                    Toast.makeText(context, "Please enter the booking start time!", Toast.LENGTH_SHORT).show();
+                }
+                else if (BookingEnd.getText().length() == 0)
+                {
+                    Toast.makeText(context, "Please enter the booking end time!", Toast.LENGTH_SHORT).show();
+                }
+                else if (BookingReason.getText().length() == 0)
+                {
+                    Toast.makeText(context, "Please enter the booking reason!", Toast.LENGTH_SHORT).show();
+                }
+                else if (No_of_Person.getText().length() == 0)
+                {
+                    Toast.makeText(context, "Please enter no of person!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    {
+                    if(BookingStart.equals(i.getStringExtra("Start")) && BookingEnd.equals(i.getStringExtra("End")))
+                    {
+                        updateBooking();
+                    }
+                    else
+                    {
+                        String Start = BookingStart.getText().toString();
+                        String End = BookingEnd.getText().toString();
+                        if(Start.contentEquals("00:") && End.contentEquals("12:"))
+                        {
+                            updateBooking();
+                        }
+                        else {
+
+                            if (compareTime()) {
+                                updateBooking();
+                            } else {
+                                Toast.makeText(context, "End time should not less then Start time!!!", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }

@@ -51,6 +51,7 @@ public class booking_f2 extends Fragment implements View.OnClickListener, User_l
     NavController navController;
     SharedPreferences InviteList_Token,InviteList_RUID;
     SharedPreferences.Editor editor_token,editor_RUID;
+    TextView textView;
 
 
     public booking_f2() {
@@ -68,6 +69,7 @@ public class booking_f2 extends Fragment implements View.OnClickListener, User_l
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getActivity().getApplicationContext();
+        textView = view.findViewById(R.id.no_one_avail_text);
         InviteList_Token = getActivity().getSharedPreferences("InviteList_Token",context.MODE_PRIVATE);
         InviteList_RUID = getActivity().getSharedPreferences("InviteList_RUID",context.MODE_PRIVATE);
         editor_token = InviteList_Token.edit();
@@ -143,6 +145,12 @@ public class booking_f2 extends Fragment implements View.OnClickListener, User_l
                         }
                     }
                     user_list_adapter.notifyDataSetChanged();
+                    if(Users_Filtered_list.size() == 0)
+                    {
+                        progressBar.setVisibility(View.GONE);
+                        textView.setVisibility(View.VISIBLE);
+                        PeopleInviteList.setVisibility(View.GONE);
+                    }
                 }
                 else
                 {

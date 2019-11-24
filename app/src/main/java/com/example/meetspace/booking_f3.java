@@ -4,7 +4,6 @@ package com.example.meetspace;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -12,17 +11,14 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.example.meetspace.ListAdapters.Resource_list_adapter;
 import com.example.meetspace.ModelClass.ResourceList;
 import com.google.firebase.database.DataSnapshot;
@@ -73,8 +69,8 @@ public class booking_f3 extends Fragment implements View.OnClickListener, Resour
         ResourceList = view.findViewById(R.id.resource_list_booking3);
         NextButton = view.findViewById(R.id.next_button_booking_3);
         ResourceList.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        resource_list_adapter = new Resource_list_adapter(this,Resources_Filtered_List,context);
-        ResourceList.setAdapter(resource_list_adapter);
+       /* resource_list_adapter = new Resource_list_adapter(this,Resources_Filtered_List,context);
+        ResourceList.setAdapter(resource_list_adapter);*/
 
 
         Search_resource_List =view.findViewById(R.id.search_bar_edit_text_resource_list);
@@ -127,9 +123,7 @@ public class booking_f3 extends Fragment implements View.OnClickListener, Resour
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
-                {/*
-                    int index = 01;*/
-
+                {
                     progressBar.setVisibility(View.GONE);
                     for (DataSnapshot ds : dataSnapshot.getChildren())
                     {
@@ -160,7 +154,7 @@ public class booking_f3 extends Fragment implements View.OnClickListener, Resour
     }
 
     @Override
-    public void AddExtraResource(com.example.meetspace.ModelClass.ResourceList resourceList, int position,Boolean status)
+    public void AddExtraResource(ResourceList resourceList, int position,Boolean status)
     {
             if (status == true) {
 

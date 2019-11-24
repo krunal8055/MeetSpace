@@ -23,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetspace.ListAdapters.List_Adapter;
@@ -46,13 +47,12 @@ public class Homepage extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     EditText editText;
-    ArrayList<list_data> datalist;
-    ArrayList<list_data> filter_search = new ArrayList<>();
+    ArrayList<list_data> datalist,filter_search;
     RecyclerView recyclerView;
     List_Adapter listAdapter;
     Bundle recieved_data,SelectedRoom;
     ProgressBar progressBar;
-
+    TextView error_search;
     public Homepage() {
         // Required empty public constructor
     }
@@ -68,8 +68,7 @@ public class Homepage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         progressBar = view.findViewById(R.id.progressBar_home);
-        recieved_data=getArguments();
-
+        /*recieved_data=getArguments();
         if(recieved_data!=null)
         {
             if(recieved_data.get("date") != null) {
@@ -81,11 +80,13 @@ public class Homepage extends Fragment {
             if(recieved_data.getString("end_time") != null) {
                 Log.i("Recieved Data : End",recieved_data.getString("end_time"));
             }
-        }
+        }*/
 
         context = getActivity().getApplicationContext();
-        editText = view.findViewById(R.id.search_bar_edit_text_home);
+        error_search = view.findViewById(R.id.error_search_home);
         /*---------------- For Search Bar -----------------*/
+
+        editText = view.findViewById(R.id.search_bar_edit_text_home);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -99,17 +100,24 @@ public class Homepage extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                //editable.clear();
+
             }
         });
 
-        /*-------------- Recycler View --------------------*/
+
+        /*-------------- Recycler View Start --------------------*/
         recyclerView = view.findViewById(R.id.recycler_home_page);
         datalist = new ArrayList<list_data>();
+        filter_search = new ArrayList<list_data>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        listAdapter = new List_Adapter(datalist,context);
+        if(editText.getText().length() == 0)
+        {
+            error_search.setVisibility(View.GONE);
+            listAdapter = new List_Adapter(datalist,context);
+        }
+        listAdapter = new List_Adapter(filter_search,context);
         recyclerView.setAdapter(listAdapter);
-
+        /*-------------- Recycler View End --------------------*/
         navController = Navigation.findNavController(view);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -120,23 +128,28 @@ public class Homepage extends Fragment {
 
     private void filter_search(String toString) {
         filter_search.clear();
-
         for(list_data item: datalist)
         {
             if(item.getRoom_no().contains(toString))
             {
                 filter_search.add(item);
             }
+            if(filter_search.size() == 0)
+            {
+                error_search.setVisibility(View.VISIBLE);
+            }
+            else {
+                error_search.setVisibility(View.GONE);
+            }
         }
-        datalist.clear();
-        datalist.addAll(filter_search);
         listAdapter.notifyDataSetChanged();
-        //listAdapter.filterList(filter_search);
     }
     private void fromFirebaseToList()
     {
         progressBar.setVisibility(View.VISIBLE);
         datalist.clear();
+        //error_search.setVisibility(View.GONE);
+        filter_search.clear();
         listAdapter.notifyDataSetChanged();
         databaseReference.child("Room").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -146,6 +159,7 @@ public class Homepage extends Fragment {
                     for(DataSnapshot ds : dataSnapshot.getChildren())
                     {
                         datalist.add(new list_data(ds.getKey()));
+                        filter_search.add(new list_data(ds.getKey()));
                     }
                     progressBar.setVisibility(View.GONE);
                     listAdapter.notifyDataSetChanged();
@@ -155,7 +169,7 @@ public class Homepage extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(context,"Database error!Please Try Again.",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -168,6 +182,9 @@ public class Homepage extends Fragment {
             SelectedRoom = new Bundle();
             SelectedRoom.putString("SelectedRoomNo",datalist.get(position).getRoom_no());
             SelectedRoom.putInt("SelectedPosition",position);
+            //ON Fragment change hide Keyboard
+            InputMethodManager keyboard = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            keyboard.hideSoftInputFromWindow(viewHolder.itemView.getApplicationWindowToken(), 0);
             navController.navigate(R.id.action_homepage_to_room_Detail_page,SelectedRoom);
         }
     };

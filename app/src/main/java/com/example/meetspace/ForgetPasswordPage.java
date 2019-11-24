@@ -63,7 +63,7 @@ public class ForgetPasswordPage extends Fragment implements View.OnClickListener
         navController = Navigation.findNavController(view);
         Email_for_Forget_Password = view.findViewById(R.id.email_forget_password);
         send_Verification_mail_button = view.findViewById(R.id.send_verification_mail_button);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("ForgetPassword");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("ForgotPassword");
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

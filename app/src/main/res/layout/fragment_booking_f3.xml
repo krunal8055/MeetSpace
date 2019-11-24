@@ -8,17 +8,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/linear_for_search_bar_booking"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         android:background="@color/light_blue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/recycler_home_page"
         android:padding="25dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
         <TextView
@@ -27,10 +27,7 @@
             android:text="Would You Like to Add any Resources?"
             android:textSize="18dp"
             android:textColor="@android:color/white"
-            android:layout_alignParentTop="true"
-            android:layout_alignBottom="@+id/search_bar_edit_text_home"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_marginBottom="10sp"/>
 
         <EditText
             android:id="@+id/search_bar_edit_text_resource_list"
@@ -42,11 +39,8 @@
             android:background="@android:color/white"
             android:hint="Enter Resource Name"
             android:paddingStart="16dp"
-            android:paddingEnd="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
+            android:paddingEnd="48dp" />
+    </LinearLayout>
     <ProgressBar
         android:id="@+id/progress_bar_resource_list"
         android:layout_width="wrap_content"

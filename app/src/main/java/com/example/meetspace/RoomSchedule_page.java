@@ -73,9 +73,9 @@ public class RoomSchedule_page extends Fragment {
                     d = "0"+day.getDay();
                 }
                 else
-                    {
-                        d = String.valueOf(day.getDay());
-                    }
+                {
+                    d = String.valueOf(day.getDay());
+                }
                 String day_txt =d+"/"+(day.getMonth()+1)+"/"+day.getYear();
 
 
@@ -107,6 +107,7 @@ public class RoomSchedule_page extends Fragment {
 
             @Override
             public void onItemClick(View view) {
+
             }
 
             @Override
@@ -121,6 +122,16 @@ public class RoomSchedule_page extends Fragment {
 
             @Override
             public void onWeekChange(int i) {
+
+            }
+
+            @Override
+            public void onClickListener() {
+
+            }
+
+            @Override
+            public void onDayChanged() {
 
             }
         });

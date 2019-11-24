@@ -57,21 +57,22 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Catagory"
+                        android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/catagory_room_detail"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:hint="catagory"
                         android:textColor="@color/Orange"
                         android:textColorHint="@android:color/white"
-                        android:textSize="14dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -82,21 +83,22 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Floor no"
+                        android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/floor_room_detail"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:hint="floor no"
                         android:textColor="@color/Orange"
                         android:textColorHint="@android:color/white"
-                        android:textSize="14dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -107,22 +109,23 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Capacity"
+                        android:gravity="center"
                         android:textColor="@android:color/white"
                         android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/capacity_room_detail"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:hint="capacity"
                         android:paddingStart="10dp"
                         android:textColor="@color/Orange"
                         android:textColorHint="@android:color/white"
-                        android:textSize="14dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -131,10 +134,10 @@
             android:id="@+id/available_res_linear_room_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="140dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/buttons_linear_room_details"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info_linear_room_details">
 
@@ -149,8 +152,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -174,7 +177,7 @@
                     <TextView
                         android:id="@+id/software_room_detail"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="110dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:background="@color/light_blue"
@@ -207,7 +210,7 @@
                     <TextView
                         android:id="@+id/hardware_room_detail"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="110dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:background="@color/light_blue"
@@ -221,37 +224,6 @@
             </LinearLayout>
         </LinearLayout>
         <!-- Linear for Button show -->
-        <LinearLayout
-            android:id="@+id/buttons_linear_room_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/available_res_linear_room_details">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/chk_schedule_room_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Check Schedule"
-                style="@style/Button"
-                android:textSize="16sp"
-                android:layout_marginBottom="5dp"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/booking_room_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Book This Room"
-                style="@style/Button"
-                android:textSize="16sp"
-                android:layout_marginTop="5dp"/>
-        </LinearLayout>
-
-
         <ProgressBar
             android:id="@+id/progress_bar_room_detail"
             android:layout_width="wrap_content"
@@ -265,4 +237,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/buttons_linear_room_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/chk_schedule_room_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Check Schedule"
+            style="@style/Button"
+            android:textSize="16sp"
+            android:layout_marginBottom="5dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/booking_room_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Book This Room"
+            style="@style/Button"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
 </FrameLayout>

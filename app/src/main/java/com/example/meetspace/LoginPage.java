@@ -96,7 +96,7 @@ public class LoginPage extends Fragment implements View.OnClickListener {
         email_id = view.findViewById(R.id.email_id);
         password = view.findViewById(R.id.password);
         Login = view.findViewById(R.id.login_button);
-        ForgetPassword = view.findViewById(R.id.forget_password);
+        ForgetPassword = view.findViewById(R.id.forgot_password);
         progressBar.setVisibility(View.GONE);
 
         Login.setOnClickListener(this);

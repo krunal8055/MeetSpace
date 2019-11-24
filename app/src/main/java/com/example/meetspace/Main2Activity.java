@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -144,6 +146,9 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onSupportNavigateUp() {
         setdata_in_drawer_layout();
+        //ON Fragment change hide Keyboard
+        InputMethodManager keyboard = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        keyboard.hideSoftInputFromWindow(HomeNavigationView.getWindowToken(), 0);
         return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.home_fragment), HomedrawerLayout) || super.onSupportNavigateUp();
     }
 
@@ -172,27 +177,28 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         switch (id) {
             case R.id.home_nav_drawer:
                     navController.navigate(R.id.action_homepage_self);
-            case R.id.log_out_nav_draw:
-                DeleteToken();
-                firebaseAuth.signOut();
-                Intent intent_signout = new Intent(this, MainActivity.class);
-                startActivity(intent_signout);
-                finish();
-                break;
-            case R.id.my_booking_nav_draw:
-                navController.navigate(R.id.action_homepage_to_myBookingPage);
-                break;
+                    break;
             case R.id.edit_profile_nav_drawer:
                 navController.navigate(R.id.action_homepage_to_edit_Profile);
                 break;
-            case R.id.about_us_nav_draw:
-                navController.navigate(R.id.action_homepage_to_about_us_page);
+            case R.id.my_booking_nav_draw:
+                navController.navigate(R.id.action_homepage_to_myBookingPage);
                 break;
             case R.id.notification_nav_draw:
                 //navController.navigate(R.id.action_homepage_to_noitifcationPage);
                 Intent intent_notification = new Intent(this, NotificationPage.class);
                 startActivity(intent_notification);
                 //finish();
+                break;
+            case R.id.about_us_nav_draw:
+                navController.navigate(R.id.action_homepage_to_about_us_page);
+                break;
+            case R.id.log_out_nav_draw:
+                DeleteToken();
+                firebaseAuth.signOut();
+                Intent intent_signout = new Intent(this, MainActivity.class);
+                startActivity(intent_signout);
+                finish();
                 break;
         }
         return false;

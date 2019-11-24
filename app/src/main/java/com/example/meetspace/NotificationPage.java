@@ -31,7 +31,11 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class NotificationPage extends AppCompatActivity {
     RecyclerView notification_list;
@@ -92,12 +96,30 @@ public class NotificationPage extends AppCompatActivity {
     public void getFirebaseMessage()
     {
         progressBar.setVisibility(View.VISIBLE);
+        //
+        Calendar c = Calendar.getInstance();
+        int yy = c.get(Calendar.YEAR);
+        int mm = c.get(Calendar.MONTH);
+        int dd = c.get(Calendar.DAY_OF_MONTH);
+        final String today_date = dd + "/" + (mm + 1) + "/" + yy;
+
+        final String[] BD = new String[1];
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        final Date[] bookD = {null};
+        Date today = null;
+        try {
+            today = sdf.parse(today_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //
             firebaseAuth = FirebaseAuth.getInstance();
             uid = firebaseAuth.getUid();
             firebaseDatabase = FirebaseDatabase.getInstance();
             databaseReference = firebaseDatabase.getReference().child("User");
 
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        final Date finalToday = today;
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
@@ -112,33 +134,31 @@ public class NotificationPage extends AppCompatActivity {
 
                                 for (DataSnapshot ds1 : main.child("MyBooking").getChildren())
                                 {
-
+                                    //if(ds1.child("Bookingdate").getValue())
+                                    //Log.i("Booking Date:",ds1.child("Bookingdate").getValue().toString());
+                                    BD[0] = ds1.child("Bookingdate").getValue().toString();
+                                    try {
+                                        bookD[0] = sdf.parse(BD[0]);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
                                     for (DataSnapshot ds2 : ds1.child("MyInviteList").getChildren())
                                     {
-
-                                       /* if(ds2.child("Invited_User_token_id").exists())
-                                        {*/
                                             if (uid.equals(ds2.child("Reciever_UID").getValue().toString()))
                                             {
-
-                                                if (ds2.child("Invitation_Status").getValue().toString().equals("Pending"))
-                                                {
-                                                    progressBar.setVisibility(View.GONE);
-                                                    notificationDataArrayList.add(new Notification_data(ds2.child("Message").getValue().toString()));
-                                                }
-                                                else
-                                                    {
-                                                    progressBar.setVisibility(View.GONE);
+                                                if(bookD[0].compareTo(finalToday) >0) {
+                                                    if (ds2.child("Invitation_Status").getValue().toString().equals("Pending")) {
+                                                        progressBar.setVisibility(View.GONE);
+                                                        notificationDataArrayList.add(new Notification_data(ds2.child("Message").getValue().toString()));
+                                                    } else {
+                                                        progressBar.setVisibility(View.GONE);
+                                                    }
                                                 }
                                             }
                                             else
                                                 {
                                                     progressBar.setVisibility(View.GONE);
                                             }
-                                       /* }
-                                        else {
-                                            progressBar.setVisibility(View.GONE);
-                                        }*/
                                     }
                                     notificationListAdapter.notifyDataSetChanged();
                                 }
